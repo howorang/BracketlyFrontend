@@ -22,6 +22,9 @@ public interface TournamentApi {
                                         @Query("seedingStrategy") String seedingStrategy);
 
     @GET("/tournament/all")
-    public Observable<List<TournamentSimpleDto>> getAllTournaments();
+    public Observable<List<TournamentSimpleDto>> getAllTournaments(@Query("page") int page,
+                                                                   @Query("field") String field,
+                                                                   @Query("size") int size,
+                                                                   @Query("direction") String direction);
 
 }
