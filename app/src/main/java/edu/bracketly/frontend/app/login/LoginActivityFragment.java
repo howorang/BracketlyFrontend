@@ -3,6 +3,7 @@ package edu.bracketly.frontend.app.login;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -52,5 +53,9 @@ public class LoginActivityFragment extends BaseFragment {
 
     public void onLogin() {
         Navigator.openMainActivity(getContext());
+    }
+
+    public void onBadCredentials() {
+        Toast.makeText(getContext(), "Bad credentials", Toast.LENGTH_SHORT).show();
     }
 }
