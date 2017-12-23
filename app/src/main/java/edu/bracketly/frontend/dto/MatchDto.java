@@ -1,25 +1,45 @@
 package edu.bracketly.frontend.dto;
 
-import edu.bracketly.backend.model.entity.match.Match;
-import edu.bracketly.backend.model.flow.MATCH_STATUS;
-import lombok.Data;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Data
+import edu.bracketly.frontend.consts.MATCH_STATUS;
+
+
 public class MatchDto {
     private Long id;
     private String tag;
     private List<SeatDto> players;
     private MATCH_STATUS matchStatus;
 
-    public static MatchDto asDto(Match match) {
-        MatchDto dto = new MatchDto();
-        dto.setId(match.getId());
-        dto.setTag(match.getTag().toString());
-        dto.setMatchStatus(match.getMatchStatus());
-        dto.setPlayers(match.getSeats().stream().map(SeatDto::asDto).collect(Collectors.toList()));
-        return dto;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public List<SeatDto> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<SeatDto> players) {
+        this.players = players;
+    }
+
+    public MATCH_STATUS getMatchStatus() {
+        return matchStatus;
+    }
+
+    public void setMatchStatus(MATCH_STATUS matchStatus) {
+        this.matchStatus = matchStatus;
     }
 }

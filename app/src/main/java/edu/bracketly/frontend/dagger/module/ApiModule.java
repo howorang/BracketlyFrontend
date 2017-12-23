@@ -5,10 +5,11 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import edu.bracketly.frontend.api.BasicAuthInterceptor;
+import edu.bracketly.frontend.api.TournamentAPI;
 import edu.bracketly.frontend.api.UserAPI;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -16,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 @Module
-public class ApiModule {
+public abstract class ApiModule {
 
     private static final String BASE_URL = "https://bracketly.herokuapp.com/";
 
@@ -39,7 +40,7 @@ public class ApiModule {
     static Retrofit provideRetrofit(OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -49,5 +50,11 @@ public class ApiModule {
     @Singleton
     static UserAPI provideUserAPI(Retrofit retrofit) {
         return retrofit.create(UserAPI.class);
+    }
+
+    @Provides
+    @Singleton
+    static TournamentAPI provideTournamentAPI(Retrofit retrofit) {
+        return retrofit.create(TournamentAPI.class);
     }
 }
