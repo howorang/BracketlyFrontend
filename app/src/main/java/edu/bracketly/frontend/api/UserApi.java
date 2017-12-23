@@ -8,7 +8,7 @@ import retrofit2.http.Query;
  * Created by howor on 22.12.2017.
  */
 
-public interface UserAPI {
+public interface UserApi {
     @POST("user/")
     public Completable createUser(@Query("username") String username,
                                   @Query("password") String password);

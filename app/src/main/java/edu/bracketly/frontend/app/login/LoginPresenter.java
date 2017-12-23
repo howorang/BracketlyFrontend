@@ -3,7 +3,7 @@ package edu.bracketly.frontend.app.login;
 import javax.inject.Inject;
 
 import edu.bracketly.frontend.api.BasicAuthInterceptor;
-import edu.bracketly.frontend.api.TournamentAPI;
+import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -17,18 +17,18 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
 
     private BasicAuthInterceptor authInterceptor;
 
-    private TournamentAPI tournamentAPI;
+    private TournamentApi tournamentApi;
 
     @Inject
-    public LoginPresenter(LoginActivityFragment view, TournamentAPI tournamentAPI, BasicAuthInterceptor authInterceptor) {
+    public LoginPresenter(LoginActivityFragment view, TournamentApi tournamentApi, BasicAuthInterceptor authInterceptor) {
         super(view);
-        this.tournamentAPI = tournamentAPI;
+        this.tournamentApi = tournamentApi;
         this.authInterceptor = authInterceptor;
     }
 
     public void login(String username, String password) {
         authInterceptor.setCredentials(username, password);
-        Disposable subscribe = tournamentAPI.getAllTournaments()
+        Disposable subscribe = tournamentApi.getAllTournaments()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(p -> view.onLogin());

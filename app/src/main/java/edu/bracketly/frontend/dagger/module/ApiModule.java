@@ -5,8 +5,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import edu.bracketly.frontend.api.BasicAuthInterceptor;
-import edu.bracketly.frontend.api.TournamentAPI;
-import edu.bracketly.frontend.api.UserAPI;
+import edu.bracketly.frontend.api.TournamentApi;
+import edu.bracketly.frontend.api.UserApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -48,13 +48,13 @@ public abstract class ApiModule {
 
     @Provides
     @Singleton
-    static UserAPI provideUserAPI(Retrofit retrofit) {
-        return retrofit.create(UserAPI.class);
+    static UserApi provideUserAPI(Retrofit retrofit) {
+        return retrofit.create(UserApi.class);
     }
 
     @Provides
     @Singleton
-    static TournamentAPI provideTournamentAPI(Retrofit retrofit) {
-        return retrofit.create(TournamentAPI.class);
+    static TournamentApi provideTournamentAPI(Retrofit retrofit) {
+        return retrofit.create(TournamentApi.class);
     }
 }

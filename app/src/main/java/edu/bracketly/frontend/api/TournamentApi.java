@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  * Created by howor on 22.12.2017.
  */
 
-public interface TournamentAPI {
+public interface TournamentApi {
     @POST("/tournament")
     public Completable createTournament(@Query("name") String name,
                                         @Query("eventDate") Date eventDate,
