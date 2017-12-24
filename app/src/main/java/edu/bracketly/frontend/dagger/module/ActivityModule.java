@@ -2,9 +2,10 @@ package edu.bracketly.frontend.dagger.module;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import edu.bracketly.frontend.MainActivity;
 import edu.bracketly.frontend.app.login.LoginActivity;
 import edu.bracketly.frontend.app.login.LoginActivityModule;
+import edu.bracketly.frontend.app.main.MainActivity;
+import edu.bracketly.frontend.app.main.MainActivityModule;
 import edu.bracketly.frontend.dagger.ActivityScope;
 
 /**
@@ -15,7 +16,7 @@ import edu.bracketly.frontend.dagger.ActivityScope;
 public abstract class ActivityModule {
 
     @ActivityScope
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = {MainActivityModule.class})
     abstract MainActivity mainActivityInjector();
 
     @ActivityScope

@@ -29,6 +29,11 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
         this.authInterceptor = authInterceptor;
     }
 
+    @Override
+    public void onResume() {
+
+    }
+
     public void login(String username, String password) {
         authInterceptor.setCredentials(username, password);
         Disposable subscribe = userApi.aboutMe()

@@ -1,35 +1,27 @@
 package edu.bracketly.frontend.app;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import javax.inject.Inject;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import dagger.android.support.DaggerFragment;
-import edu.bracketly.frontend.R;
 
 /**
  * Created by howor on 23.12.2017.
  */
 
-public abstract class BaseFragment extends DaggerFragment {
+public abstract class BaseFragment<P extends Presenter> extends DaggerFragment {
 
-    private Unbinder unbinder;
+    @Inject
+    protected P presenter;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+    public void onResume() {
+        super.onResume();
+        presenter.onResume();
     }
 
     @Override
-    public void onDestroyView() {
-        unbinder.unbind();
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }
