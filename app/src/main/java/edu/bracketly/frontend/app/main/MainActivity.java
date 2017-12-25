@@ -6,7 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import butterknife.BindView;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseActivity;
-import edu.bracketly.frontend.app.tournament.TournamentListFragment;
+import edu.bracketly.frontend.app.tournament.list.TournamentListFragment;
 
 public class MainActivity extends BaseActivity {
 

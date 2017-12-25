@@ -1,4 +1,4 @@
-package edu.bracketly.frontend.app.tournament;
+package edu.bracketly.frontend.app.tournament.list;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

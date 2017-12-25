@@ -5,8 +5,8 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import edu.bracketly.frontend.app.BaseActivity;
 import edu.bracketly.frontend.app.BaseActivityModule;
-import edu.bracketly.frontend.app.tournament.TournamentFragmentModule;
-import edu.bracketly.frontend.app.tournament.TournamentListFragment;
+import edu.bracketly.frontend.app.tournament.list.TournamentFragmentModule;
+import edu.bracketly.frontend.app.tournament.list.TournamentListFragment;
 import edu.bracketly.frontend.dagger.ActivityScope;
 import edu.bracketly.frontend.dagger.FragmentScope;
 

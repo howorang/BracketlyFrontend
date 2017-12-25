@@ -1,4 +1,4 @@
-package edu.bracketly.frontend.app.tournament;
+package edu.bracketly.frontend.app.tournament.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
