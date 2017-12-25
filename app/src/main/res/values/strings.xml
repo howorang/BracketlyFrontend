@@ -5,4 +5,12 @@
     <string name="profile">Profile</string>
     <string name="start">Start</string>
     <string name="tournaments">Tournaments</string>
+    <string name="title_activity_add_tournament">AddTournamentActivity</string>
+    <string name="tournament_name">Name:</string>
+    <string name="tournament_name_hint">Tournament name</string>
+    <string name="tournament_event_date">Event date:</string>
+    <string name="tournament_event_date_hint">Event date</string>
+    <string name="bracket_type">Bracket type </string>
+    <string name="bracket_seeding">Seeding </string>
+    <string name="save">Save</string>
 </resources>

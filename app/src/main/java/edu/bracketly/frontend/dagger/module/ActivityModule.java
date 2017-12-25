@@ -6,6 +6,8 @@ import edu.bracketly.frontend.app.login.LoginActivity;
 import edu.bracketly.frontend.app.login.LoginActivityModule;
 import edu.bracketly.frontend.app.main.MainActivity;
 import edu.bracketly.frontend.app.main.MainActivityModule;
+import edu.bracketly.frontend.app.tournament.add.AddTournamentActivity;
+import edu.bracketly.frontend.app.tournament.add.AddTournamentActivityModule;
 import edu.bracketly.frontend.dagger.ActivityScope;
 
 /**
@@ -22,4 +24,8 @@ public abstract class ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {LoginActivityModule.class})
     abstract LoginActivity loginActivityInjector();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {AddTournamentActivityModule.class})
+    abstract AddTournamentActivity addTournamentActivityInjector();
 }

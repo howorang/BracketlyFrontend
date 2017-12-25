@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,6 +13,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseFragment;
+import edu.bracketly.frontend.navigation.Navigator;
 
 
 public class TournamentListFragment extends BaseFragment<TournamentPresenter> {
@@ -52,7 +52,7 @@ public class TournamentListFragment extends BaseFragment<TournamentPresenter> {
 
     @OnClick(R.id.fab)
     public void onFabClick(View view) {
-        Toast.makeText(getContext(), "test", Toast.LENGTH_LONG).show();
+        Navigator.openAddTournamentActivity(getContext());
     }
 
     @Override

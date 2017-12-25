@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".app.main.MainActivity">
             <intent-filter>
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,6 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".app.tournament.add.AddTournamentActivity"
+            android:label="@string/title_activity_add_tournament"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

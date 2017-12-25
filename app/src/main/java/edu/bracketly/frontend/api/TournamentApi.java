@@ -1,6 +1,5 @@
 package edu.bracketly.frontend.api;
 
-import java.util.Date;
 import java.util.List;
 
 import edu.bracketly.frontend.dto.TournamentSimpleDto;
@@ -17,7 +16,7 @@ import retrofit2.http.Query;
 public interface TournamentApi {
     @POST("/tournament")
     public Completable createTournament(@Query("name") String name,
-                                        @Query("eventDate") Date eventDate,
+                                        @Query("eventDate") String eventDate,
                                         @Query("bracketType") String bracketType,
                                         @Query("seedingStrategy") String seedingStrategy);
 
