@@ -37,14 +37,8 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
 
     @Override
     public void onResume() {
+        loadNextPage();
         setupAdapter();
-        tournamentApi.getAllTournaments(currentPageNumber, "name", 5, "DESC")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(tournamentSimpleDtos -> {
-                    tournaments.addAll(tournamentSimpleDtos);
-                    view.list.getAdapter().notifyDataSetChanged();
-                });
     }
 
     private void setupAdapter() {
@@ -54,9 +48,7 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
         view.list.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             public void loadData() {
-                isLoading = true;
                 loadNextPage();
-                currentPageNumber++;
             }
 
             @Override
@@ -72,17 +64,22 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
     }
 
     private void loadNextPage() {
+        isLoading = true;
         Disposable disposableCall = tournamentApi.getAllTournaments(currentPageNumber, "name", 5, "DESC")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         tournamentSimpleDtos -> {
-                            if (tournamentSimpleDtos.isEmpty()) isLastPage = true;
+                            if (tournamentSimpleDtos.isEmpty()) {
+                                isLastPage = true;
+                                return;
+                            }
                             tournaments.addAll(tournamentSimpleDtos);
                             view.list.getAdapter().notifyDataSetChanged();
                             isLoading = false;
                         });
         disposable.add(disposableCall);
+        currentPageNumber++;
     }
 
     public int getItemCount() {

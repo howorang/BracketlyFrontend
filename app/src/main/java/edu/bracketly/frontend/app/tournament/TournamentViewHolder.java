@@ -26,7 +26,7 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
 
     public TournamentViewHolder(View itemView) {
         super(itemView);
-        unbinder = ButterKnife.bind(this.itemView);
+        unbinder = ButterKnife.bind(this, itemView);
     }
 
     public void bind(TournamentSimpleDto dto) {

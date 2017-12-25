@@ -1,5 +1,8 @@
 package edu.bracketly.frontend.dagger.module;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -20,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class ApiModule {
 
     private static final String BASE_URL = "https://bracketly.herokuapp.com/";
+    private static final String DATE_FORMAT = "yyyy-MM-dd/HH:mm:ss";
 
     @Provides
     @Singleton
@@ -37,11 +41,20 @@ public abstract class ApiModule {
 
     @Provides
     @Singleton
-    static Retrofit provideRetrofit(OkHttpClient client) {
+    static Gson provideGson() {
+        return new GsonBuilder()
+                .setDateFormat(DATE_FORMAT)
+                .setLenient()
+                .create();
+    }
+
+    @Provides
+    @Singleton
+    static Retrofit provideRetrofit(OkHttpClient client, Gson gson) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
     }
