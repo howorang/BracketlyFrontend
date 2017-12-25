@@ -1,13 +1,16 @@
 package edu.bracketly.frontend.app.tournament;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseFragment;
@@ -19,6 +22,9 @@ public class TournamentListFragment extends BaseFragment<TournamentPresenter> {
 
     @BindView(R.id.list)
     RecyclerView list;
+
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     public TournamentListFragment() {
     }
@@ -43,6 +49,11 @@ public class TournamentListFragment extends BaseFragment<TournamentPresenter> {
         return view;
     }
 
+
+    @OnClick(R.id.fab)
+    public void onFabClick(View view) {
+        Toast.makeText(getContext(), "test", Toast.LENGTH_LONG).show();
+    }
 
     @Override
     public void onDestroyView() {

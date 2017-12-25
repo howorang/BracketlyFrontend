@@ -4,6 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -16,13 +19,19 @@ import edu.bracketly.frontend.dto.TournamentSimpleDto;
 
 public class TournamentViewHolder extends RecyclerView.ViewHolder {
 
+    private static final SimpleDateFormat hourFormat = new SimpleDateFormat("HH::mm", Locale.getDefault());
+    private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
     private Unbinder unbinder;
 
     @BindView(R.id.name)
     TextView name;
 
-    @BindView(R.id.event_date)
-    TextView eventDate;
+    @BindView(R.id.event_hour)
+    TextView eventHour;
+
+    @BindView(R.id.event_day)
+    TextView eventDay;
 
     public TournamentViewHolder(View itemView) {
         super(itemView);
@@ -31,7 +40,8 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(TournamentSimpleDto dto) {
         name.setText(dto.getName());
-        eventDate.setText(dto.getEventDate().toString());
+        eventDay.setText(dayFormat.format(dto.getEventDate()));
+        eventHour.setText(hourFormat.format(dto.getEventDate()));
     }
 
     public void unbind() {
