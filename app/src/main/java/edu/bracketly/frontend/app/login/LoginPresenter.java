@@ -61,6 +61,6 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
                     view.onBadCredentials();
                     break;
             }
-        }
+        } else throw new RuntimeException(throwable);
     }
 }
