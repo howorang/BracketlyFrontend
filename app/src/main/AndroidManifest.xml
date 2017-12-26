@@ -30,7 +30,16 @@
         <activity
             android:name=".app.tournament.add.AddTournamentActivity"
             android:label="@string/title_activity_add_tournament"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".app.tournament.details.TournamentDetailsActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".app.tournament.details.ItemListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.bracketly.frontend.app.tournament.details.ItemListActivity" />
+        </activity>
     </application>
 
 </manifest>

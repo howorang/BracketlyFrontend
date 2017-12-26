@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import edu.bracketly.frontend.dto.TournamentSimpleDto;
+import edu.bracketly.frontend.navigation.Navigator;
 import edu.bracketly.frontend.utils.PaginationScrollListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -88,5 +89,9 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
 
     public TournamentSimpleDto getItem(int position) {
         return tournaments.get(position);
+    }
+
+    public void onTournamentRowClick(int position) {
+        Navigator.openTournamentDetailsActivity(view.getContext(), tournaments.get(position).getId());
     }
 }

@@ -23,6 +23,7 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
     private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
     private Unbinder unbinder;
+    private View thisView;
 
     @BindView(R.id.name)
     TextView name;
@@ -36,12 +37,17 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
     public TournamentViewHolder(View itemView) {
         super(itemView);
         unbinder = ButterKnife.bind(this, itemView);
+        thisView = itemView;
     }
 
     public void bind(TournamentSimpleDto dto) {
         name.setText(dto.getName());
         eventDay.setText(dayFormat.format(dto.getEventDate()));
         eventHour.setText(hourFormat.format(dto.getEventDate()));
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        thisView.setOnClickListener(onClickListener);
     }
 
     public void unbind() {
