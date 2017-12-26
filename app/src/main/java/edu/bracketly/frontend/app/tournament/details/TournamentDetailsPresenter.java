@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import edu.bracketly.frontend.dto.TournamentDto;
+import edu.bracketly.frontend.utils.RoundPagerAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -33,7 +34,9 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
 
     @Override
     public void onResume() {
+        view.viewPager.setAdapter(new RoundPagerAdapter(view.getFragmentManager()));
         loadTournament(tournamentId);
+
     }
 
     private void loadTournament(long tournamentId) {
@@ -58,5 +61,17 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
 
     public void setTournamentId(long tournamentId) {
         this.tournamentId = tournamentId;
+    }
+
+    public void onJoinButtonClick() {
+
+    }
+
+    public void onModifyButtonClick() {
+
+    }
+
+    public void onStartButtonClick() {
+
     }
 }

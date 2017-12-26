@@ -15,4 +15,7 @@
     <string name="save">Save</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="modify_tournament">Edit</string>
+    <string name="join_tournaments">Join</string>
+    <string name="start_tournament">Start</string>
 </resources>
