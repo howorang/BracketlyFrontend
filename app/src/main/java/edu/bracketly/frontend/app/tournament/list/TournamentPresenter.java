@@ -78,6 +78,7 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
                             tournaments.addAll(tournamentSimpleDtos);
                             view.list.getAdapter().notifyDataSetChanged();
                             isLoading = false;
+                            view.setListEmpty(tournaments.isEmpty());
                         });
         disposable.add(disposableCall);
         currentPageNumber++;

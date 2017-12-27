@@ -11,18 +11,24 @@ import edu.bracketly.frontend.app.tournament.round.RoundFragment;
  */
 
 public class RoundPagerAdapter extends FragmentPagerAdapter {
-    public RoundPagerAdapter(FragmentManager fm) {
+
+    private long bracketId;
+    private int roundCount;
+
+    public RoundPagerAdapter(FragmentManager fm, long bracketId, int roundCount) {
         super(fm);
+        this.bracketId = bracketId;
+        this.roundCount = roundCount;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return RoundFragment.newInstance(1);
+        return RoundFragment.newInstance(bracketId, position);
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return roundCount;
     }
 
     @Override

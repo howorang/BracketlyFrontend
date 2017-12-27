@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +24,9 @@ public class TournamentListFragment extends BaseFragment<TournamentPresenter> {
     @BindView(R.id.list)
     RecyclerView list;
 
+    @BindView(R.id.no_items_message)
+    TextView noItemsMessage;
+
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
@@ -34,6 +38,16 @@ public class TournamentListFragment extends BaseFragment<TournamentPresenter> {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    void setListEmpty(boolean isEmpty) {
+        if (isEmpty) {
+            list.setVisibility(View.GONE);
+            noItemsMessage.setVisibility(View.VISIBLE);
+        } else {
+            list.setVisibility(View.VISIBLE);
+            noItemsMessage.setVisibility(View.GONE);
+        }
     }
 
     @Override

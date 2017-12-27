@@ -35,6 +35,9 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
     @BindView(R.id.pager)
     ViewPager viewPager;
 
+    @BindView(R.id.no_items_message)
+    TextView noItemsMessage;
+
     private Unbinder unbinder;
 
     public TournamentDetailsFragment() {
@@ -75,6 +78,17 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
         View rootView = inflater.inflate(R.layout.tournament_detail, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    public void setTournamentHasNotStartedMessage(boolean b) {
+        if (b) {
+            viewPager.setVisibility(View.GONE);
+            noItemsMessage.setVisibility(View.VISIBLE);
+            noItemsMessage.setText(R.string.tournament_not_started_message);
+        } else {
+            viewPager.setVisibility(View.VISIBLE);
+            noItemsMessage.setVisibility(View.GONE);
+        }
     }
 
     @Override

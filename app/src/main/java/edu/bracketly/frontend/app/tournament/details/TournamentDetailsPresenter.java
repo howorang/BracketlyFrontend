@@ -5,8 +5,10 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import edu.bracketly.frontend.api.BracketApi;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
+import edu.bracketly.frontend.dto.SingleBracketStateDto;
 import edu.bracketly.frontend.dto.TournamentDto;
 import edu.bracketly.frontend.utils.RoundPagerAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,19 +26,20 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
 
     private long tournamentId;
     private TournamentDto tournament;
+    private SingleBracketStateDto bracketStateDto;
     private TournamentApi tournamentApi;
+    private BracketApi bracketApi;
 
     @Inject
-    protected TournamentDetailsPresenter(TournamentDetailsFragment view, TournamentApi tournamentApi) {
+    protected TournamentDetailsPresenter(TournamentDetailsFragment view, TournamentApi tournamentApi, BracketApi bracketApi) {
         super(view);
         this.tournamentApi = tournamentApi;
+        this.bracketApi = bracketApi;
     }
 
     @Override
     public void onResume() {
-        view.viewPager.setAdapter(new RoundPagerAdapter(view.getFragmentManager()));
         loadTournament(tournamentId);
-
     }
 
     private void loadTournament(long tournamentId) {
@@ -45,8 +48,26 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tournamentDto -> {
                     tournament = tournamentDto;
+                    loadBracketDetails();
                     updateUi();
                 });
+    }
+
+    private void loadBracketDetails() {
+        if (tournament.getBracketId() != null) {
+            view.setTournamentHasNotStartedMessage(false);
+            bracketApi.getBracketState(tournament.getBracketId())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(dto -> {
+                        bracketStateDto = (SingleBracketStateDto) dto;
+                        view.viewPager.setAdapter(
+                                new RoundPagerAdapter(view.getFragmentManager(), tournament.getBracketId(), bracketStateDto.getRoundCount())
+                        );
+                    });
+        } else {
+            view.setTournamentHasNotStartedMessage(true);
+        }
     }
 
     private void updateUi() {

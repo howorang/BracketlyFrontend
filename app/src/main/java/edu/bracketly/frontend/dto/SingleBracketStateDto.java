@@ -1,10 +1,8 @@
 package edu.bracketly.frontend.dto;
 
-import java.util.List;
-
 public class SingleBracketStateDto extends BracketStateDto {
     private int currentRound;
-    private List<RoundDto> rounds;
+    private int roundCount;
 
     public int getCurrentRound() {
         return currentRound;
@@ -14,11 +12,11 @@ public class SingleBracketStateDto extends BracketStateDto {
         this.currentRound = currentRound;
     }
 
-    public List<RoundDto> getRounds() {
-        return rounds;
+    public int getRoundCount() {
+        return roundCount;
     }
 
-    public void setRounds(List<RoundDto> rounds) {
-        this.rounds = rounds;
+    public void setRoundCount(int roundCount) {
+        this.roundCount = roundCount;
     }
 }

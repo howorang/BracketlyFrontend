@@ -20,6 +20,8 @@
             android:paddingTop="4dp" />
     </android.support.v4.view.ViewPager>
 
+    <include layout="@layout/empty_list_placeholder" />
+
     <LinearLayout
         android:id="@+id/button_panel"
         android:layout_width="match_parent"
