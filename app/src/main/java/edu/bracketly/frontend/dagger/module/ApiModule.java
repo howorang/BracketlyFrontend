@@ -9,6 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 import edu.bracketly.frontend.api.BasicAuthInterceptor;
 import edu.bracketly.frontend.api.BracketApi;
+import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.api.UserApi;
 import okhttp3.OkHttpClient;
@@ -76,5 +77,11 @@ public abstract class ApiModule {
     @Singleton
     static BracketApi provideBracketApi(Retrofit retrofit) {
         return retrofit.create(BracketApi.class);
+    }
+
+    @Provides
+    @Singleton
+    static SingleEliminationBracketApi provideSingleEliminationBracketApi(Retrofit retrofit) {
+        return retrofit.create(SingleEliminationBracketApi.class);
     }
 }
