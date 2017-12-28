@@ -68,7 +68,7 @@ public class RoundPresenter implements Presenter {
     }
 
     public void onMatchClick(int position) {
-        Navigator.openMatchActivity(view.getContext(), matchDtos.get(position));
+        Navigator.openMatchActivity(view.getContext(), bracketId, matchDtos.get(position));
     }
 
     public long getMatchId(int position) {

@@ -43,8 +43,9 @@ public final class Navigator {
         context.startActivity(intent);
     }
 
-    public static void openMatchActivity(Context context, @NonNull MatchDto matchDto) {
+    public static void openMatchActivity(Context context, long bracketId, @NonNull MatchDto matchDto) {
         Intent intent = new Intent(context, MatchActivity.class);
+        intent.putExtra(MatchActivityFragment.ARG_BRACKET_ID, bracketId);
         intent.putExtra(MatchActivityFragment.ARG_MATCH_DTO, matchDto);
         context.startActivity(intent);
     }

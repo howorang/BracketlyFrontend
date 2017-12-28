@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -39,10 +40,20 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
     @BindView(R.id.player_two_fragment_container)
     FrameLayout playerTwoFragmentContainer;
 
+    @BindView(R.id.player_one_win_button)
+    Button playerOneWinButton;
+
+    @BindView(R.id.player_two_win_button)
+    Button playerTwoWinButton;
+
     private Unbinder unbinder;
     private HostContract host;
 
     public MatchActivityFragment() {
+    }
+
+    FloatingActionButton getFab() {
+        return host.getFab();
     }
 
     @Override
@@ -88,6 +99,22 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
 
     public void displayMatchStartMessage() {
         Toast.makeText(getContext(), "Tournament started.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void displayPlayedMessage() {
+        Toast.makeText(getContext(), "Winner has been chosen", Toast.LENGTH_SHORT).show();
+    }
+
+    public void matchPlayed() {
+        getFab().setVisibility(View.GONE);
+        playerOneWinButton.setVisibility(View.GONE);
+        playerTwoWinButton.setVisibility(View.GONE);
+    }
+
+    public void markLive() {
+        getFab().setVisibility(View.GONE);
+        playerOneWinButton.setVisibility(View.VISIBLE);
+        playerTwoWinButton.setVisibility(View.VISIBLE);
     }
 
     @Override

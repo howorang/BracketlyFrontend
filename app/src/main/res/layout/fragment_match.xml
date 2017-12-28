@@ -7,6 +7,13 @@
     tools:showIn="@layout/activity_match"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/player_one_win_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/winner_button_text"
+        android:visibility="gone" />
+
     <FrameLayout
         android:name="edu.bracketly.frontend.app.player.PlayerFragment"
         android:id="@+id/player_one_fragment_container"
@@ -28,5 +35,12 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/player_two_win_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/winner_button_text"
+        android:visibility="gone" />
 
 </LinearLayout>
