@@ -13,6 +13,7 @@ public class MyMatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchViewHo
 
     public MyMatchRecyclerViewAdapter(RoundPresenter presenter) {
         this.presenter = presenter;
+        setHasStableIds(true);
     }
 
     @Override
@@ -38,6 +39,11 @@ public class MyMatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchViewHo
     public void onViewRecycled(MatchViewHolder holder) {
         super.onViewRecycled(holder);
         holder.unbind();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return presenter.getMatchId(position);
     }
 
     @Override
