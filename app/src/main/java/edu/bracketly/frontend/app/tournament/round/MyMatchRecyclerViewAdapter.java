@@ -26,8 +26,19 @@ public class MyMatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchViewHo
     public void onBindViewHolder(MatchViewHolder holder, int position) {
         holder.playerOneLabel.setText(presenter.getPlayerOneLabel(position));
         holder.playerTwpLabel.setText(presenter.getPlayerTwoLabel(position));
+        holder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onMatchClick(position);
+            }
+        });
     }
 
+    @Override
+    public void onViewRecycled(MatchViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.unbind();
+    }
 
     @Override
     public int getItemCount() {

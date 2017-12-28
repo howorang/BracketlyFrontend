@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +18,14 @@ import edu.bracketly.frontend.app.BaseFragment;
 
 
 public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPresenter> {
+
+    public void displayTournamentJoinedMessage() {
+        Toast.makeText(getContext(), "Tournament joined.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void displayTournamentStartedMessage() {
+        Toast.makeText(getContext(), "Tournament started.", Toast.LENGTH_SHORT).show();
+    }
 
     public interface Host {
         CollapsingToolbarLayout getToolbarLayout();

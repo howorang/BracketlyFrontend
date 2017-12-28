@@ -24,4 +24,10 @@ public abstract class BaseActivityModule {
     static FragmentManager provideFragmentManager(BaseActivity activity) {
         return activity.getFragmentManager();
     }
+
+    @ActivityScope
+    @Provides
+    static android.support.v4.app.FragmentManager provideSupportFragmentManager(BaseActivity baseActivity) {
+        return baseActivity.getSupportFragmentManager();
+    }
 }

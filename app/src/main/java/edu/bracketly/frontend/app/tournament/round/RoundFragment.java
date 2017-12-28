@@ -1,6 +1,7 @@
 package edu.bracketly.frontend.app.tournament.round;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import edu.bracketly.frontend.R;
-import edu.bracketly.frontend.app.BaseFragment;
 
 
-public class RoundFragment extends BaseFragment<RoundPresenter> {
+public class RoundFragment extends Fragment {
+
+    private RoundPresenter presenter;
 
     @BindView(R.id.list)
     RecyclerView list;
@@ -29,8 +31,9 @@ public class RoundFragment extends BaseFragment<RoundPresenter> {
     }
 
     @SuppressWarnings("unused")
-    public static RoundFragment newInstance(long bracketId, int roundNumber) {
+    public static RoundFragment newInstance(long bracketId, int roundNumber, RoundPresenter presenter) {
         RoundFragment fragment = new RoundFragment();
+        fragment.presenter = presenter;
         Bundle args = new Bundle();
         args.putLong(ARG_BRACKET_ID, bracketId);
         args.putInt(ARG_ROUND_NUMBER, roundNumber);
@@ -41,11 +44,17 @@ public class RoundFragment extends BaseFragment<RoundPresenter> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        presenter.setView(this);
         if (getArguments() != null) {
-            presenter.bracketId = savedInstanceState.getLong(ARG_BRACKET_ID, -11L);
-            presenter.roundNumber = savedInstanceState.getInt(ARG_ROUND_NUMBER, -11);
+            presenter.bracketId = getArguments().getLong(ARG_BRACKET_ID, -11L);
+            presenter.roundNumber = getArguments().getInt(ARG_ROUND_NUMBER, -11);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.onResume();
     }
 
     @Override

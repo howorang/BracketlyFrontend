@@ -1,12 +1,13 @@
 package edu.bracketly.frontend.app.tournament.round;
 
+import android.support.v7.widget.LinearLayoutManager;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
-import edu.bracketly.frontend.api.BracketApi;
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
-import edu.bracketly.frontend.app.BasePresenter;
+import edu.bracketly.frontend.app.Presenter;
 import edu.bracketly.frontend.dto.MatchDto;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -15,19 +16,16 @@ import io.reactivex.schedulers.Schedulers;
  * Created by howor on 27.12.2017.
  */
 
-public class RoundPresenter extends BasePresenter<RoundFragment> {
+public class RoundPresenter implements Presenter {
 
     private List<MatchDto> matchDtos;
-    private BracketApi bracketApi;
     private SingleEliminationBracketApi singleEliminationBracketApi;
     long bracketId;
     int roundNumber;
+    private RoundFragment view;
 
     @Inject
-    protected RoundPresenter(RoundFragment view, BracketApi bracketApi,
-                             SingleEliminationBracketApi singleEliminationBracketApi) {
-        super(view);
-        this.bracketApi = bracketApi;
+    public RoundPresenter(SingleEliminationBracketApi singleEliminationBracketApi) {
         this.singleEliminationBracketApi = singleEliminationBracketApi;
     }
 
@@ -36,7 +34,20 @@ public class RoundPresenter extends BasePresenter<RoundFragment> {
         singleEliminationBracketApi.getRound(bracketId, roundNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(roundDto -> matchDtos = roundDto.getMatches());
+                .subscribe(roundDto -> {
+                    matchDtos = roundDto.getMatches();
+                    setupAdapter();
+                });
+    }
+
+    private void setupAdapter() {
+        view.list.setAdapter(new MyMatchRecyclerViewAdapter(this));
+        view.list.setLayoutManager(new LinearLayoutManager(view.getContext()));
+    }
+
+    @Override
+    public void onDestroy() {
+
     }
 
     public int getMatchCount() {
@@ -49,5 +60,13 @@ public class RoundPresenter extends BasePresenter<RoundFragment> {
 
     public String getPlayerOneLabel(int position) {
         return matchDtos.get(position).getPlayers().get(1).getPlayer().getUsername();
+    }
+
+    public void setView(RoundFragment view) {
+        this.view = view;
+    }
+
+    public void onMatchClick(int position) {
+        matchDtos.get(position).getId();
     }
 }

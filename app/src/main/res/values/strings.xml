@@ -21,4 +21,8 @@
     <string name="vs">VS</string>
     <string name="no_items_on_list">No items on list.</string>
     <string name="tournament_not_started_message">Tournament has not started yet</string>
+    <string name="title_activity_match">MatchActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -6,11 +6,13 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import edu.bracketly.frontend.api.BracketApi;
+import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
+import edu.bracketly.frontend.app.tournament.round.RoundPagerAdapter;
+import edu.bracketly.frontend.app.tournament.round.RoundPresenter;
 import edu.bracketly.frontend.dto.SingleBracketStateDto;
 import edu.bracketly.frontend.dto.TournamentDto;
-import edu.bracketly.frontend.utils.RoundPagerAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -29,12 +31,16 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     private SingleBracketStateDto bracketStateDto;
     private TournamentApi tournamentApi;
     private BracketApi bracketApi;
+    private SingleEliminationBracketApi singleEliminationBracketApi;
+    private RoundPagerAdapter roundPagerAdapter;
 
     @Inject
-    protected TournamentDetailsPresenter(TournamentDetailsFragment view, TournamentApi tournamentApi, BracketApi bracketApi) {
+    protected TournamentDetailsPresenter(TournamentDetailsFragment view, TournamentApi tournamentApi, BracketApi bracketApi,
+                                         SingleEliminationBracketApi singleEliminationBracketApi) {
         super(view);
         this.tournamentApi = tournamentApi;
         this.bracketApi = bracketApi;
+        this.singleEliminationBracketApi = singleEliminationBracketApi;
     }
 
     @Override
@@ -53,6 +59,14 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                 });
     }
 
+    public Long getBracketId() {
+        return tournament.getBracketId();
+    }
+
+    public Integer getRoundCount() {
+        return bracketStateDto.getRoundCount();
+    }
+
     private void loadBracketDetails() {
         if (tournament.getBracketId() != null) {
             view.setTournamentHasNotStartedMessage(false);
@@ -62,8 +76,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                     .subscribe(dto -> {
                         bracketStateDto = (SingleBracketStateDto) dto;
                         view.viewPager.setAdapter(
-                                new RoundPagerAdapter(view.getFragmentManager(), tournament.getBracketId(), bracketStateDto.getRoundCount())
-                        );
+                                new RoundPagerAdapter(view.getFragmentManager(), this));
                     });
         } else {
             view.setTournamentHasNotStartedMessage(true);
@@ -84,15 +97,31 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
         this.tournamentId = tournamentId;
     }
 
-    public void onJoinButtonClick() {
+    void onJoinButtonClick() {
+        tournamentApi.joinTournament(tournamentId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    view.displayTournamentJoinedMessage();
+                    onResume();
+                });
+    }
+
+    void onModifyButtonClick() {
 
     }
 
-    public void onModifyButtonClick() {
-
+    void onStartButtonClick() {
+        tournamentApi.startTournament(tournamentId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dto -> {
+                    view.displayTournamentStartedMessage();
+                    onResume();
+                });
     }
 
-    public void onStartButtonClick() {
-
+    public RoundPresenter getRoundPresenter() {
+        return new RoundPresenter(singleEliminationBracketApi);
     }
 }

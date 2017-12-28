@@ -40,6 +40,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.bracketly.frontend.app.tournament.details.ItemListActivity" />
         </activity>
+        <activity
+            android:name=".app.match.MatchActivity"
+            android:label="@string/title_activity_match"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
