@@ -24,6 +24,10 @@ public interface BracketApi {
                           @Path("matchId") Long matchId,
                           @Body Long winningSeatId);
 
+    @POST("/bracket/{bracketId}/start/{matchId}")
+    Completable startMatch(@Path("bracketId") Long bracketId,
+                           @Path("matchId") Long matchId);
+
     @GET("/bracket/{bracketId}/match/available")
     Observable<List<MatchDto>> getAvailableMatchesForBracket(@Path("bracketId") Long bracketId);
 

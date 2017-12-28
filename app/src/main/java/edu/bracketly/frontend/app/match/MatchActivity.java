@@ -1,6 +1,7 @@
 package edu.bracketly.frontend.app.match;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
@@ -9,7 +10,10 @@ import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseActivity;
 
 
-public class MatchActivity extends BaseActivity {
+public class MatchActivity extends BaseActivity implements MatchActivityFragment.HostContract {
+
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     @BindView(R.id.fragment_container)
     FrameLayout fragmentContainer;
@@ -41,4 +45,8 @@ public class MatchActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public FloatingActionButton getFab() {
+        return fab;
+    }
 }

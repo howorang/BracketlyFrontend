@@ -1,13 +1,16 @@
 package edu.bracketly.frontend.app.match;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +25,10 @@ import edu.bracketly.frontend.dto.MatchDto;
  */
 public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
 
+    interface HostContract {
+        FloatingActionButton getFab();
+    }
+
     public static final String ARG_BRACKET_ID = "bracket_id";
     public static final String ARG_MATCH_ID = "match_id";
     public static final String ARG_MATCH_DTO = "match_dto";
@@ -33,6 +40,7 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
     FrameLayout playerTwoFragmentContainer;
 
     private Unbinder unbinder;
+    private HostContract host;
 
     public MatchActivityFragment() {
     }
@@ -71,10 +79,21 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
         presenter.setBracketId(bracketId);
         presenter.setMatchId(matchId);
         presenter.setMatchDto(matchDto);
+        host.getFab().setOnClickListener(view -> presenter.onFabClick());
     }
 
     void replaceFragment(@IdRes int containerId, Fragment fragment) {
         getChildFragmentManager().beginTransaction().replace(containerId, fragment).commit();
+    }
+
+    public void displayMatchStartMessage() {
+        Toast.makeText(getContext(), "Tournament started.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        host = (HostContract) context;
     }
 
     @Override
