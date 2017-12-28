@@ -25,6 +25,7 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
     private int currentPageNumber = 0;
     private boolean isLoading;
     private boolean isLastPage;
+    private int pageSize = 10;
     private TournamentApi tournamentApi;
     private List<TournamentSimpleDto> tournaments = new ArrayList<>();
 
@@ -38,8 +39,18 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
 
     @Override
     public void onResume() {
+        resetState();
+        if (view.list.getAdapter() == null) {
+            setupAdapter();
+        }
         loadNextPage();
-        setupAdapter();
+    }
+
+    private void resetState() {
+        currentPageNumber = 0;
+        isLastPage = false;
+        isLoading = false;
+        tournaments.clear();
     }
 
     private void setupAdapter() {
@@ -66,14 +77,13 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
 
     private void loadNextPage() {
         isLoading = true;
-        Disposable disposableCall = tournamentApi.getAllTournaments(currentPageNumber, "name", 5, "DESC")
+        Disposable disposableCall = tournamentApi.getAllTournaments(currentPageNumber, "creationDate", pageSize, "DESC")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         tournamentSimpleDtos -> {
-                            if (tournamentSimpleDtos.isEmpty()) {
+                            if (tournamentSimpleDtos.size() < pageSize) {
                                 isLastPage = true;
-                                return;
                             }
                             tournaments.addAll(tournamentSimpleDtos);
                             view.list.getAdapter().notifyDataSetChanged();
@@ -85,7 +95,7 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
     }
 
     public int getItemCount() {
-        return tournaments.size();
+        return tournaments != null ? tournaments.size() : 0;
     }
 
     public TournamentSimpleDto getItem(int position) {
@@ -94,5 +104,9 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
 
     public void onTournamentRowClick(int position) {
         Navigator.openTournamentDetailsActivity(view.getContext(), tournaments.get(position).getId());
+    }
+
+    public long getId(int position) {
+        return tournaments.get(position).getId();
     }
 }

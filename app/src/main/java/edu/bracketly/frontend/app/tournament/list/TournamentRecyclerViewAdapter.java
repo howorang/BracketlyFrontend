@@ -14,6 +14,7 @@ public class TournamentRecyclerViewAdapter extends RecyclerView.Adapter<Tourname
 
     public TournamentRecyclerViewAdapter(TournamentPresenter presenter) {
         this.presenter = presenter;
+        setHasStableIds(true);
     }
 
     @Override
@@ -39,8 +40,12 @@ public class TournamentRecyclerViewAdapter extends RecyclerView.Adapter<Tourname
     @Override
     public void onViewRecycled(TournamentViewHolder holder) {
         super.onViewRecycled(holder);
-        holder.unbind();
         holder.setOnClickListener(null);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return presenter.getId(position);
     }
 
     @Override

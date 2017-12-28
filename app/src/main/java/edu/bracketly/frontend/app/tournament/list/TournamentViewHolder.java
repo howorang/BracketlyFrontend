@@ -9,7 +9,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.dto.TournamentSimpleDto;
 
@@ -22,7 +21,6 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
     private static final SimpleDateFormat hourFormat = new SimpleDateFormat("HH::mm", Locale.getDefault());
     private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
-    private Unbinder unbinder;
     private View thisView;
 
     @BindView(R.id.name)
@@ -36,7 +34,7 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
 
     public TournamentViewHolder(View itemView) {
         super(itemView);
-        unbinder = ButterKnife.bind(this, itemView);
+        ButterKnife.bind(this, itemView);
         thisView = itemView;
     }
 
@@ -48,9 +46,5 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
         thisView.setOnClickListener(onClickListener);
-    }
-
-    public void unbind() {
-        unbinder.unbind();
     }
 }
