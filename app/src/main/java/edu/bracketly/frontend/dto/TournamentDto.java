@@ -1,13 +1,14 @@
 package edu.bracketly.frontend.dto;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import edu.bracketly.frontend.consts.BRACKET_TYPE;
 import edu.bracketly.frontend.consts.SEEDING_STRATEGY;
 import edu.bracketly.frontend.consts.TOURNAMENT_STATUS;
 
-public class TournamentDto {
+public class TournamentDto implements Serializable {
 
     private Long id;
     private String name;

@@ -1,6 +1,8 @@
 package edu.bracketly.frontend.dto;
 
-public class PlayerDto {
+import java.io.Serializable;
+
+public class PlayerDto implements Serializable {
     private long id;
     private String username;
     private long rank;

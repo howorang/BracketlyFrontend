@@ -1,10 +1,12 @@
 package edu.bracketly.frontend.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by howor on 23.12.2017.
  */
 
-public class UserDetailsDto {
+public class UserDetailsDto implements Serializable {
     private String user;
     private long rank;
 

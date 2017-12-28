@@ -1,4 +1,6 @@
 package edu.bracketly.frontend.dto;
 
-public class CreateTournamentResponseDto {
+import java.io.Serializable;
+
+public class CreateTournamentResponseDto implements Serializable {
 }

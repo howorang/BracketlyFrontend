@@ -1,9 +1,10 @@
 package edu.bracketly.frontend.dto;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RoundDto {
+public class RoundDto implements Serializable {
     private int number;
     private List<MatchDto> matches;
 

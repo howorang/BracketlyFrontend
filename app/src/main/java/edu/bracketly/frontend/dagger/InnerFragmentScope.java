@@ -11,6 +11,6 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PageFragmentScope {
+public @interface InnerFragmentScope {
 
 }

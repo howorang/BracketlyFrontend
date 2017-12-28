@@ -1,8 +1,9 @@
 package edu.bracketly.frontend.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TournamentSimpleDto {
+public class TournamentSimpleDto implements Serializable {
     private Long id;
     private String name;
     private Date creationDate;

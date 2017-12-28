@@ -7,9 +7,9 @@
     tools:showIn="@layout/activity_match"
     android:orientation="vertical">
 
-    <fragment
+    <FrameLayout
         android:name="edu.bracketly.frontend.app.player.PlayerFragment"
-        android:id="@+id/player_one_fragment"
+        android:id="@+id/player_one_fragment_container"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -22,9 +22,9 @@
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 
-    <fragment
+    <FrameLayout
         android:name="edu.bracketly.frontend.app.player.PlayerFragment"
-        android:id="@+id/player_two_fragment"
+        android:id="@+id/player_two_fragment_container"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,6 +1,8 @@
 package edu.bracketly.frontend.dto;
 
-public class CreateUserDto {
+import java.io.Serializable;
+
+public class CreateUserDto implements Serializable {
     private String username;
     private String password;
 

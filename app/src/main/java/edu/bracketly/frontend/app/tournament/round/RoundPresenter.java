@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.app.Presenter;
 import edu.bracketly.frontend.dto.MatchDto;
+import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -67,6 +68,6 @@ public class RoundPresenter implements Presenter {
     }
 
     public void onMatchClick(int position) {
-        matchDtos.get(position).getId();
+        Navigator.openMatchActivity(view.getContext(), matchDtos.get(position));
     }
 }

@@ -1,6 +1,8 @@
 package edu.bracketly.frontend.dto;
 
-public class TournamentStartResponseDto {
+import java.io.Serializable;
+
+public class TournamentStartResponseDto implements Serializable {
     private Long bracketId;
 
     public Long getBracketId() {
