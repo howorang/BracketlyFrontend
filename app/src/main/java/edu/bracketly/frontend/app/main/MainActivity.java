@@ -20,7 +20,7 @@ public class MainActivity extends BaseActivity {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.navigation_profile:
+                case R.id.navigation_ranking:
                     return true;
 
                 case R.id.navigation_start:
