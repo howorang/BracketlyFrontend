@@ -6,7 +6,7 @@ import edu.bracketly.frontend.api.BaseObserver;
 import edu.bracketly.frontend.api.BasicAuthInterceptor;
 import edu.bracketly.frontend.api.UserApi;
 import edu.bracketly.frontend.app.BasePresenter;
-import edu.bracketly.frontend.dto.UserDetailsDto;
+import edu.bracketly.frontend.dto.UserDto;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -39,9 +39,9 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
         Disposable subscribe = userApi.aboutMe()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new BaseObserver<UserDetailsDto>() {
+                .subscribeWith(new BaseObserver<UserDto>() {
                     @Override
-                    public void onNext(UserDetailsDto userDetailsDto) {
+                    public void onNext(UserDto userDetailsDto) {
                         view.onLogin();
                     }
 

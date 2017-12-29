@@ -1,6 +1,6 @@
 package edu.bracketly.frontend.api;
 
-import edu.bracketly.frontend.dto.UserDetailsDto;
+import edu.bracketly.frontend.dto.UserDto;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface UserApi {
     @GET("user/me")
-    public Observable<UserDetailsDto> aboutMe();
+    public Observable<UserDto> aboutMe();
 
     @POST("user/")
     public Completable createUser(@Query("username") String username,

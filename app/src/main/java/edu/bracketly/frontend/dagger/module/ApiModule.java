@@ -14,7 +14,9 @@ import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.api.UserApi;
 import edu.bracketly.frontend.dto.BracketStateDto;
+import edu.bracketly.frontend.dto.PlayerDto;
 import edu.bracketly.frontend.dto.SingleBracketStateDto;
+import edu.bracketly.frontend.dto.UserDto;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -50,7 +52,11 @@ public abstract class ApiModule {
         return new GsonBuilder()
                 .setDateFormat(DATE_FORMAT)
                 .setLenient()
-                .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(BracketStateDto.class).registerSubtype(SingleBracketStateDto.class))
+                .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(BracketStateDto.class)
+                        .registerSubtype(SingleBracketStateDto.class))
+                .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(UserDto.class)
+                        .registerSubtype(PlayerDto.class)
+                        .registerSubtype(UserDto.class))
                 .create();
     }
 
