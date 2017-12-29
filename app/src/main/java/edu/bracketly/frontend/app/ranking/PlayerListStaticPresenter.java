@@ -51,8 +51,12 @@ public class PlayerListStaticPresenter extends BasePresenter<PlayerListFragment>
         return players.get(position).getId();
     }
 
+    @Override
+    public String getOrdinal(int position) {
+        return "";
+    }
+
     public void setData(List<PlayerDto> data) {
         this.players = data;
-        view.list.getAdapter().notifyDataSetChanged();
     }
 }

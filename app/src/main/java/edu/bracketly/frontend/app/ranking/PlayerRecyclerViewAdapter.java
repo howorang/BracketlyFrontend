@@ -20,7 +20,7 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRowVie
     @Override
     public PlayerRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_tournament_row, parent, false);
+                .inflate(R.layout.row_player, parent, false);
         return new PlayerRowViewHolder(v);
     }
 
@@ -28,7 +28,7 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRowVie
     public void onBindViewHolder(PlayerRowViewHolder holder, int position) {
         PlayerDto playerDto = presenter.getPlayer(position);
         holder.rank.setText(String.valueOf(playerDto.getRank()));
-        holder.rankOrdinal.setText(String.valueOf(position));
+        holder.rankOrdinal.setText(presenter.getOrdinal(position));
         holder.username.setText(playerDto.getUsername());
     }
 

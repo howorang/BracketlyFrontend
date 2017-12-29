@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import butterknife.BindView;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseActivity;
+import edu.bracketly.frontend.app.ranking.PlayerListFragment;
 import edu.bracketly.frontend.app.tournament.list.TournamentListFragment;
 
 public class MainActivity extends BaseActivity {
@@ -21,6 +22,7 @@ public class MainActivity extends BaseActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navigation_ranking:
+                    replaceFragment(R.id.fragment_container, PlayerListFragment.newInstance());
                     return true;
 
                 case R.id.navigation_start:

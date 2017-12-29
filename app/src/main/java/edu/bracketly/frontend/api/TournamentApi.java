@@ -2,6 +2,7 @@ package edu.bracketly.frontend.api;
 
 import java.util.List;
 
+import edu.bracketly.frontend.dto.PlayerDto;
 import edu.bracketly.frontend.dto.TournamentDto;
 import edu.bracketly.frontend.dto.TournamentSimpleDto;
 import edu.bracketly.frontend.dto.TournamentStartResponseDto;
@@ -43,5 +44,8 @@ public interface TournamentApi {
 
     @PUT("/tournament/{tournamentId}")
     Completable editTournament(@Path("tournamentId") Long tournamentId);
+
+    @GET("/tournament/{tournamentId}/players")
+    Observable<List<PlayerDto>> getTournamentPlayers(@Path("tournamentId") Long tournamentId);
 
 }

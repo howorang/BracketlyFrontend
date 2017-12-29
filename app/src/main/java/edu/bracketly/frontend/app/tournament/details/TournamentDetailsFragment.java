@@ -1,11 +1,14 @@
 package edu.bracketly.frontend.app.tournament.details;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +43,9 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
     CollapsingToolbarLayout toolbarLayout;
     TextView eventDay;
     TextView eventHour;
+
+    @BindView(R.id.fragment_container)
+    FrameLayout fragmentContainer;
 
     @BindView(R.id.pager)
     ViewPager viewPager;
@@ -99,6 +105,11 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
             noItemsMessage.setVisibility(View.GONE);
         }
     }
+
+    void replaceFragment(@IdRes int containerId, Fragment fragment) {
+        getChildFragmentManager().beginTransaction().replace(containerId, fragment).commit();
+    }
+
 
     @Override
     public void onDestroy() {

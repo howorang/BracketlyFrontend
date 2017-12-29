@@ -1,16 +1,20 @@
 package edu.bracketly.frontend.app.tournament.details;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
+import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.api.BracketApi;
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
+import edu.bracketly.frontend.app.ranking.PlayerListFragment;
 import edu.bracketly.frontend.app.tournament.round.RoundPagerAdapter;
 import edu.bracketly.frontend.app.tournament.round.RoundPresenter;
+import edu.bracketly.frontend.consts.TOURNAMENT_STATUS;
 import edu.bracketly.frontend.dto.SingleBracketStateDto;
 import edu.bracketly.frontend.dto.TournamentDto;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -55,8 +59,10 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tournamentDto -> {
                     tournament = tournamentDto;
-                    loadBracketDetails();
                     updateUi();
+                    if (tournament.getTournamentStatus() != TOURNAMENT_STATUS.PLANNING) {
+                        loadBracketDetails();
+                    }
                 });
         disposable.add(subscribe);
     }
@@ -90,6 +96,16 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
         view.toolbarLayout.setTitle(getTitle());
         view.eventHour.setText(hourFormat.format(tournament.getEventDate()));
         view.eventDay.setText(dayFormat.format(tournament.getEventDate()));
+        if (tournament.getTournamentStatus() == TOURNAMENT_STATUS.PLANNING) {
+            Disposable subscribe = tournamentApi.getTournamentPlayers(tournamentId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe((playerDtos) -> {
+                        view.replaceFragment(R.id.fragment_container,
+                                PlayerListFragment.newInstance(new ArrayList<>(playerDtos)));
+                    });
+            disposable.add(subscribe);
+        }
     }
 
     public String getTitle() {

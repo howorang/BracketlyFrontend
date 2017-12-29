@@ -105,4 +105,9 @@ public class PlayerListFragmentLivePresenter extends BasePresenter<PlayerListFra
     public long getPlayerId(int position) {
         return players.get(position).getId();
     }
+
+    @Override
+    public String getOrdinal(int position) {
+        return String.valueOf(position + 1);
+    }
 }

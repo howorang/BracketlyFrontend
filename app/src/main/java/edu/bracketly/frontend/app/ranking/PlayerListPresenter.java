@@ -13,4 +13,6 @@ public interface PlayerListPresenter extends Presenter {
     int getPlayerCount();
 
     long getPlayerId(int position);
+
+    String getOrdinal(int position);
 }
