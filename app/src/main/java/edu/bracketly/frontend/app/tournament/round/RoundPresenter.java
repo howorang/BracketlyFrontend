@@ -11,6 +11,8 @@ import edu.bracketly.frontend.app.Presenter;
 import edu.bracketly.frontend.dto.MatchDto;
 import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -25,20 +27,24 @@ public class RoundPresenter implements Presenter {
     int roundNumber;
     private RoundFragment view;
 
+    private final CompositeDisposable disposable;
+
     @Inject
     public RoundPresenter(SingleEliminationBracketApi singleEliminationBracketApi) {
         this.singleEliminationBracketApi = singleEliminationBracketApi;
+        disposable = new CompositeDisposable();
     }
 
     @Override
     public void onResume() {
-        singleEliminationBracketApi.getRound(bracketId, roundNumber)
+        Disposable subscribe = singleEliminationBracketApi.getRound(bracketId, roundNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(roundDto -> {
                     matchDtos = roundDto.getMatches();
                     setupAdapter();
                 });
+        disposable.add(subscribe);
     }
 
     private void setupAdapter() {
@@ -48,7 +54,7 @@ public class RoundPresenter implements Presenter {
 
     @Override
     public void onDestroy() {
-
+        disposable.clear();
     }
 
     public int getMatchCount() {

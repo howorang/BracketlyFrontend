@@ -8,6 +8,7 @@ import edu.bracketly.frontend.app.player.PlayerFragment;
 import edu.bracketly.frontend.consts.MATCH_STATUS;
 import edu.bracketly.frontend.dto.MatchDto;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -76,23 +77,25 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
     }
 
     private void startMatch() {
-        bracketApi.startMatch(bracketId, matchDto.getId())
+        Disposable subscribe = bracketApi.startMatch(bracketId, matchDto.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                     view.displayMatchStartMessage();
                     updateGui(MATCH_STATUS.LIVE);
                 });
+        disposable.add(subscribe);
     }
 
 
     public void onPlayerWin(int player) {
-        bracketApi.playMatch(bracketId, matchDto.getId(), matchDto.getPlayers().get(player - 1).getId())
+        Disposable subscribe = bracketApi.playMatch(bracketId, matchDto.getId(), matchDto.getPlayers().get(player - 1).getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                     view.displayPlayedMessage();
                     updateGui(MATCH_STATUS.PLAYED);
                 });
+        disposable.add(subscribe);
     }
 }

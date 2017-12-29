@@ -16,6 +16,7 @@ import edu.bracketly.frontend.app.BasePresenter;
 import edu.bracketly.frontend.consts.BRACKET_TYPE;
 import edu.bracketly.frontend.consts.SEEDING_STRATEGY;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -45,7 +46,7 @@ public class AddTournamentPresenter extends BasePresenter<AddTournamentFragment>
         BRACKET_TYPE bracketType = (BRACKET_TYPE) view.bracketTypeSpinner.getSelectedItem();
         SEEDING_STRATEGY seedingStrategy = (SEEDING_STRATEGY) view.bracketSeedingSpinner.getSelectedItem();
 
-        tournamentApi
+        Disposable subscribe = tournamentApi
                 .createTournament(tournamentName, dateFormat.format(new Date()), bracketType.name(), seedingStrategy.name())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -53,5 +54,6 @@ public class AddTournamentPresenter extends BasePresenter<AddTournamentFragment>
                     Toast.makeText(view.getContext(), "Added", Toast.LENGTH_SHORT).show();
                     view.close();
                 });
+        disposable.add(subscribe);
     }
 }

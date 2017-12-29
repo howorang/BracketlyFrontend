@@ -68,6 +68,7 @@ public class RoundFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        presenter.onDestroy();
         unbinder.unbind();
     }
 }

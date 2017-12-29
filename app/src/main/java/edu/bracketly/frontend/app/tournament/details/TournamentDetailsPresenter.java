@@ -14,6 +14,7 @@ import edu.bracketly.frontend.app.tournament.round.RoundPresenter;
 import edu.bracketly.frontend.dto.SingleBracketStateDto;
 import edu.bracketly.frontend.dto.TournamentDto;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -49,7 +50,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     }
 
     private void loadTournament(long tournamentId) {
-        tournamentApi.getTournamentDetails(tournamentId)
+        Disposable subscribe = tournamentApi.getTournamentDetails(tournamentId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tournamentDto -> {
@@ -57,6 +58,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                     loadBracketDetails();
                     updateUi();
                 });
+        disposable.add(subscribe);
     }
 
     public Long getBracketId() {
@@ -70,7 +72,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     private void loadBracketDetails() {
         if (tournament.getBracketId() != null) {
             view.setTournamentHasNotStartedMessage(false);
-            bracketApi.getBracketState(tournament.getBracketId())
+            Disposable subscribe = bracketApi.getBracketState(tournament.getBracketId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(dto -> {
@@ -78,6 +80,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                         view.viewPager.setAdapter(
                                 new RoundPagerAdapter(view.getFragmentManager(), this));
                     });
+            disposable.add(subscribe);
         } else {
             view.setTournamentHasNotStartedMessage(true);
         }
@@ -98,13 +101,14 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     }
 
     void onJoinButtonClick() {
-        tournamentApi.joinTournament(tournamentId)
+        Disposable subscribe = tournamentApi.joinTournament(tournamentId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                     view.displayTournamentJoinedMessage();
                     onResume();
                 });
+        disposable.add(subscribe);
     }
 
     void onModifyButtonClick() {
@@ -112,13 +116,14 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     }
 
     void onStartButtonClick() {
-        tournamentApi.startTournament(tournamentId)
+        Disposable subscribe = tournamentApi.startTournament(tournamentId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dto -> {
                     view.displayTournamentStartedMessage();
                     onResume();
                 });
+        disposable.add(subscribe);
     }
 
     public RoundPresenter getRoundPresenter() {
