@@ -9,11 +9,13 @@ import dagger.Module;
 import dagger.Provides;
 import edu.bracketly.frontend.api.BasicAuthInterceptor;
 import edu.bracketly.frontend.api.BracketApi;
+import edu.bracketly.frontend.api.PlayerApi;
 import edu.bracketly.frontend.api.RuntimeTypeAdapterFactory;
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.api.UserApi;
 import edu.bracketly.frontend.dto.BracketStateDto;
+import edu.bracketly.frontend.dto.PlayerDetailsDto;
 import edu.bracketly.frontend.dto.PlayerDto;
 import edu.bracketly.frontend.dto.SingleBracketStateDto;
 import edu.bracketly.frontend.dto.UserDto;
@@ -56,7 +58,8 @@ public abstract class ApiModule {
                         .registerSubtype(SingleBracketStateDto.class))
                 .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(UserDto.class)
                         .registerSubtype(PlayerDto.class)
-                        .registerSubtype(UserDto.class))
+                        .registerSubtype(UserDto.class)
+                        .registerSubtype(PlayerDetailsDto.class))
                 .create();
     }
 
@@ -93,5 +96,11 @@ public abstract class ApiModule {
     @Singleton
     static SingleEliminationBracketApi provideSingleEliminationBracketApi(Retrofit retrofit) {
         return retrofit.create(SingleEliminationBracketApi.class);
+    }
+
+    @Provides
+    @Singleton
+    static PlayerApi providePlayerApi(Retrofit retrofit) {
+        return retrofit.create(PlayerApi.class);
     }
 }
