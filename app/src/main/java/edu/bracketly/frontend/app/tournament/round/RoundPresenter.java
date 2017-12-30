@@ -42,7 +42,11 @@ public class RoundPresenter implements Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(roundDto -> {
                     matchDtos = roundDto.getMatches();
-                    setupAdapter();
+                    if (view.list.getAdapter() == null) {
+                        setupAdapter();
+                    } else {
+                        view.list.getAdapter().notifyDataSetChanged();
+                    }
                 });
         disposable.add(subscribe);
     }
@@ -58,7 +62,7 @@ public class RoundPresenter implements Presenter {
     }
 
     public int getMatchCount() {
-        return matchDtos.size();
+        return matchDtos != null ? matchDtos.size() : 0;
     }
 
     public String getPlayerTwoLabel(int position) {

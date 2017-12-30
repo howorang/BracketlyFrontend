@@ -95,14 +95,11 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
         return rootView;
     }
 
-    public void setTournamentHasNotStartedMessage(boolean b) {
-        if (b) {
+    public void setPlanningMode(boolean planningMode) {
+        if (planningMode) {
             viewPager.setVisibility(View.GONE);
-            noItemsMessage.setVisibility(View.VISIBLE);
-            noItemsMessage.setText(R.string.tournament_not_started_message);
         } else {
             viewPager.setVisibility(View.VISIBLE);
-            noItemsMessage.setVisibility(View.GONE);
         }
     }
 

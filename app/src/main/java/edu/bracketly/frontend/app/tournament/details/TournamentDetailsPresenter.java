@@ -61,7 +61,11 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                     tournament = tournamentDto;
                     updateUi();
                     if (tournament.getTournamentStatus() != TOURNAMENT_STATUS.PLANNING) {
+                        view.setPlanningMode(false);
                         loadBracketDetails();
+                    } else {
+                        view.setPlanningMode(true);
+                        loadJoinedPlayers();
                     }
                 });
         disposable.add(subscribe);
@@ -77,18 +81,17 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
 
     private void loadBracketDetails() {
         if (tournament.getBracketId() != null) {
-            view.setTournamentHasNotStartedMessage(false);
             Disposable subscribe = bracketApi.getBracketState(tournament.getBracketId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(dto -> {
                         bracketStateDto = (SingleBracketStateDto) dto;
-                        view.viewPager.setAdapter(
-                                new RoundPagerAdapter(view.getFragmentManager(), this));
+                        if (view.viewPager.getAdapter() == null) {
+                            view.viewPager.setAdapter(
+                                    new RoundPagerAdapter(view.getFragmentManager(), this));
+                        }
                     });
             disposable.add(subscribe);
-        } else {
-            view.setTournamentHasNotStartedMessage(true);
         }
     }
 
@@ -96,16 +99,17 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
         view.toolbarLayout.setTitle(getTitle());
         view.eventHour.setText(hourFormat.format(tournament.getEventDate()));
         view.eventDay.setText(dayFormat.format(tournament.getEventDate()));
-        if (tournament.getTournamentStatus() == TOURNAMENT_STATUS.PLANNING) {
-            Disposable subscribe = tournamentApi.getTournamentPlayers(tournamentId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe((playerDtos) -> {
-                        view.replaceFragment(R.id.fragment_container,
-                                PlayerListFragment.newInstance(new ArrayList<>(playerDtos)));
-                    });
-            disposable.add(subscribe);
-        }
+    }
+
+    private void loadJoinedPlayers() {
+        Disposable subscribe = tournamentApi.getTournamentPlayers(tournamentId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((playerDtos) -> {
+                    view.replaceFragment(R.id.fragment_container,
+                            PlayerListFragment.newInstance(new ArrayList<>(playerDtos)));
+                });
+        disposable.add(subscribe);
     }
 
     public String getTitle() {
