@@ -31,6 +31,7 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
         super(view);
         this.userApi = userApi;
         this.authInterceptor = authInterceptor;
+        this.userContextHelper = userContextHelper;
     }
 
     @Override
