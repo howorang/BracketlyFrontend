@@ -8,6 +8,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 import dagger.android.support.DaggerApplication;
 import edu.bracketly.frontend.dagger.module.ActivityModule;
 import edu.bracketly.frontend.dagger.module.ApiModule;
+import edu.bracketly.frontend.dagger.module.ContextModule;
 
 /**
  * Created by Piotr Borczyk on 20.12.2017.
@@ -17,7 +18,8 @@ import edu.bracketly.frontend.dagger.module.ApiModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         ActivityModule.class,
-        ApiModule.class
+        ApiModule.class,
+        ContextModule.class
 })
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
     @Component.Builder
