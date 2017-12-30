@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,18 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
 
     public void displayTournamentStartedMessage() {
         Toast.makeText(getContext(), "Tournament started.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setModifyButtonVisibility(boolean isVisible) {
+        modifyButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    public void setJoinButtonVisibility(boolean isVisible) {
+        joinButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    public void setStartButtonVisibility(boolean isVisible) {
+        startButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
 
     public interface Host {
@@ -52,6 +65,15 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
 
     @BindView(R.id.no_items_message)
     TextView noItemsMessage;
+
+    @BindView(R.id.modify_button)
+    Button modifyButton;
+
+    @BindView(R.id.start_button)
+    Button startButton;
+
+    @BindView(R.id.join_button)
+    Button joinButton;
 
     private Unbinder unbinder;
 

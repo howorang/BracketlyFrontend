@@ -11,6 +11,7 @@ import edu.bracketly.frontend.api.BracketApi;
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
+import edu.bracketly.frontend.app.UserContextHelper;
 import edu.bracketly.frontend.app.ranking.PlayerListFragment;
 import edu.bracketly.frontend.app.tournament.round.RoundPagerAdapter;
 import edu.bracketly.frontend.app.tournament.round.RoundPresenter;
@@ -38,14 +39,17 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     private BracketApi bracketApi;
     private SingleEliminationBracketApi singleEliminationBracketApi;
     private RoundPagerAdapter roundPagerAdapter;
+    private UserContextHelper userContextHelper;
 
     @Inject
     protected TournamentDetailsPresenter(TournamentDetailsFragment view, TournamentApi tournamentApi, BracketApi bracketApi,
-                                         SingleEliminationBracketApi singleEliminationBracketApi) {
+                                         SingleEliminationBracketApi singleEliminationBracketApi,
+                                         UserContextHelper userContextHelper) {
         super(view);
         this.tournamentApi = tournamentApi;
         this.bracketApi = bracketApi;
         this.singleEliminationBracketApi = singleEliminationBracketApi;
+        this.userContextHelper = userContextHelper;
     }
 
     @Override
@@ -100,6 +104,13 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
         view.toolbarLayout.setTitle(getTitle());
         view.eventHour.setText(hourFormat.format(tournament.getEventDate()));
         view.eventDay.setText(dayFormat.format(tournament.getEventDate()));
+        view.setModifyButtonVisibility(isTournamentOwner());
+        view.setStartButtonVisibility(isTournamentOwner());
+    }
+
+    private boolean isTournamentOwner() {
+        return userContextHelper.getCurrentUser().getId()
+                == tournament.getOrganizerId();
     }
 
     private void loadJoinedPlayers() {
