@@ -36,10 +36,10 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
         }
         updateGui(matchDto.getMatchStatus());
         view.replaceFragment(view.playerOneFragmentContainer.getId(),
-                PlayerFragment.newInstance(matchDto.getPlayers().get(0).getPlayer()));
+                PlayerFragment.newInstance(matchDto.getSeats().get(0).getPlayer()));
 
         view.replaceFragment(view.playerTwoFragmentContainer.getId(),
-                PlayerFragment.newInstance(matchDto.getPlayers().get(1).getPlayer()));
+                PlayerFragment.newInstance(matchDto.getSeats().get(1).getPlayer()));
     }
 
     private void updateGui(MATCH_STATUS matchStatus) {
@@ -89,7 +89,7 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
 
 
     public void onPlayerWin(int player) {
-        Disposable subscribe = bracketApi.playMatch(bracketId, matchDto.getId(), matchDto.getPlayers().get(player - 1).getId())
+        Disposable subscribe = bracketApi.playMatch(bracketId, matchDto.getId(), matchDto.getSeats().get(player - 1).getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {

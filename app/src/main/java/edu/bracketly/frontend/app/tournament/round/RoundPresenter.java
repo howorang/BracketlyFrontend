@@ -62,11 +62,19 @@ public class RoundPresenter implements Presenter {
     }
 
     public String getPlayerTwoLabel(int position) {
-        return matchDtos.get(position).getPlayers().get(0).getPlayer().getUsername();
+        return getPlayerLabel(matchDtos.get(position), 2);
     }
 
     public String getPlayerOneLabel(int position) {
-        return matchDtos.get(position).getPlayers().get(1).getPlayer().getUsername();
+        return getPlayerLabel(matchDtos.get(position), 1);
+    }
+
+    private String getPlayerLabel(MatchDto matchDto, int playerNumber) {
+        if (matchDto.getSeats().get(playerNumber - 1).getPlayer() != null) {
+            return matchDto.getSeats().get(playerNumber - 1).getPlayer().getUsername();
+        } else {
+            return "Unknown";
+        }
     }
 
     public void setView(RoundFragment view) {

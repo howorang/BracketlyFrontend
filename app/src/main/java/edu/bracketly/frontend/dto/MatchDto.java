@@ -9,7 +9,7 @@ import edu.bracketly.frontend.consts.MATCH_STATUS;
 public class MatchDto implements Serializable {
     private Long id;
     private String tag;
-    private List<SeatDto> players;
+    private List<SeatDto> seats;
     private MATCH_STATUS matchStatus;
 
     public Long getId() {
@@ -28,12 +28,12 @@ public class MatchDto implements Serializable {
         this.tag = tag;
     }
 
-    public List<SeatDto> getPlayers() {
-        return players;
+    public List<SeatDto> getSeats() {
+        return seats;
     }
 
-    public void setPlayers(List<SeatDto> players) {
-        this.players = players;
+    public void setSeats(List<SeatDto> seats) {
+        this.seats = seats;
     }
 
     public MATCH_STATUS getMatchStatus() {
