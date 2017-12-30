@@ -106,13 +106,19 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
     }
 
     public void matchPlayed() {
-        getActivity().finish();
+        getFab().setVisibility(View.GONE);
+        playerOneWinButton.setVisibility(View.GONE);
+        playerTwoWinButton.setVisibility(View.GONE);
     }
 
     public void markLive() {
         getFab().setVisibility(View.GONE);
         playerOneWinButton.setVisibility(View.VISIBLE);
         playerTwoWinButton.setVisibility(View.VISIBLE);
+    }
+
+    public void close() {
+        getActivity().finish();
     }
 
     @Override

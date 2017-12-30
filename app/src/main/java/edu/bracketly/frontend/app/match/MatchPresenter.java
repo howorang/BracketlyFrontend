@@ -95,6 +95,7 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
                 .subscribe(() -> {
                     view.displayPlayedMessage();
                     updateGui(MATCH_STATUS.PLAYED);
+                    view.close();
                 });
         disposable.add(subscribe);
     }
