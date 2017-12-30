@@ -102,13 +102,11 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
     }
 
     public void displayPlayedMessage() {
-        Toast.makeText(getContext(), "Winner has been chosen", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Winner has been chosen", Toast.LENGTH_LONG).show();
     }
 
     public void matchPlayed() {
-        getFab().setVisibility(View.GONE);
-        playerOneWinButton.setVisibility(View.GONE);
-        playerTwoWinButton.setVisibility(View.GONE);
+        getActivity().finish();
     }
 
     public void markLive() {
