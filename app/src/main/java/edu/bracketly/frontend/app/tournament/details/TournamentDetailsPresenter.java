@@ -90,6 +90,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                             view.viewPager.setAdapter(
                                     new RoundPagerAdapter(view.getFragmentManager(), this));
                         }
+                        view.setRoundNumber(bracketStateDto.getCurrentRound());
                     });
             disposable.add(subscribe);
         }

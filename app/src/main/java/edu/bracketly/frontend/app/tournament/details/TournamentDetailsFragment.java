@@ -107,6 +107,9 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
         getChildFragmentManager().beginTransaction().replace(containerId, fragment).commit();
     }
 
+    void setRoundNumber(int roundNumber) {
+        viewPager.setCurrentItem(roundNumber - 1);
+    }
 
     @Override
     public void onDestroy() {
