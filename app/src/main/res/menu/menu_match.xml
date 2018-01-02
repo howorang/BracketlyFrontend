@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="edu.bracketly.frontend.app.match.MatchActivity">
+    tools:context="edu.bracketly.frontend.app.match.view.MatchActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

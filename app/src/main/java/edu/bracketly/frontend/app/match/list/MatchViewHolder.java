@@ -1,4 +1,4 @@
-package edu.bracketly.frontend.app.tournament.round;
+package edu.bracketly.frontend.app.match.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

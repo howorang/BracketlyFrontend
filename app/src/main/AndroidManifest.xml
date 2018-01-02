@@ -41,7 +41,7 @@
                 android:value="edu.bracketly.frontend.app.tournament.details.ItemListActivity" />
         </activity>
         <activity
-            android:name=".app.match.MatchActivity"
+            android:name=".app.match.view.MatchActivity"
             android:label="@string/title_activity_match"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

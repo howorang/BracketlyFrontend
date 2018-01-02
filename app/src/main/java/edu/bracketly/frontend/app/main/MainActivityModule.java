@@ -9,6 +9,8 @@ import edu.bracketly.frontend.app.ranking.PlayerListFragment;
 import edu.bracketly.frontend.app.ranking.PlayerListFragmentLivePresenter;
 import edu.bracketly.frontend.app.ranking.PlayerListFragmentModule;
 import edu.bracketly.frontend.app.ranking.PlayerListPresenter;
+import edu.bracketly.frontend.app.start.StartFragment;
+import edu.bracketly.frontend.app.start.StartFragmentModule;
 import edu.bracketly.frontend.app.tournament.list.TournamentFragmentModule;
 import edu.bracketly.frontend.app.tournament.list.TournamentListFragment;
 import edu.bracketly.frontend.dagger.ActivityScope;
@@ -36,5 +38,9 @@ public abstract class MainActivityModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = {PlayerListFragmentModule.class})
     abstract PlayerListFragment playerListFragmentInjector();
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = {StartFragmentModule.class})
+    abstract StartFragment startFragmentInjector();
 }
 

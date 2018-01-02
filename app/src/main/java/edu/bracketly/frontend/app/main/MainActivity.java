@@ -7,6 +7,7 @@ import butterknife.BindView;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseActivity;
 import edu.bracketly.frontend.app.ranking.PlayerListFragment;
+import edu.bracketly.frontend.app.start.StartFragment;
 import edu.bracketly.frontend.app.tournament.list.TournamentListFragment;
 
 public class MainActivity extends BaseActivity {
@@ -26,6 +27,7 @@ public class MainActivity extends BaseActivity {
                     return true;
 
                 case R.id.navigation_start:
+                    replaceFragment(R.id.fragment_container, StartFragment.newInstance());
                     return true;
 
                 case R.id.navigation_tournaments:

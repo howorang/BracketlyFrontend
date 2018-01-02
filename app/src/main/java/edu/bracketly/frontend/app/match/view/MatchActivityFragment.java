@@ -1,4 +1,4 @@
-package edu.bracketly.frontend.app.match;
+package edu.bracketly.frontend.app.match.view;
 
 import android.content.Context;
 import android.os.Bundle;

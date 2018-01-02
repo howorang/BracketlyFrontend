@@ -1,4 +1,4 @@
-package edu.bracketly.frontend.app.tournament.round;
+package edu.bracketly.frontend.app.match.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.bracketly.frontend.R;
+import edu.bracketly.frontend.app.tournament.round.RoundPresenter;
 
 public class MyMatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchViewHolder> {
 
-    private RoundPresenter presenter;
+    private MatchListPresenter presenter;
 
-    public MyMatchRecyclerViewAdapter(RoundPresenter presenter) {
+    public MyMatchRecyclerViewAdapter(MatchListPresenter presenter) {
         this.presenter = presenter;
         setHasStableIds(true);
     }

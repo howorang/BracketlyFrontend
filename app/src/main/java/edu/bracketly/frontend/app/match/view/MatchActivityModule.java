@@ -1,4 +1,4 @@
-package edu.bracketly.frontend.app.match;
+package edu.bracketly.frontend.app.match.view;
 
 import dagger.Binds;
 import dagger.Module;

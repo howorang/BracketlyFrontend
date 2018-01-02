@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import edu.bracketly.frontend.app.main.MainActivity;
-import edu.bracketly.frontend.app.match.MatchActivity;
-import edu.bracketly.frontend.app.match.MatchActivityFragment;
+import edu.bracketly.frontend.app.match.view.MatchActivity;
+import edu.bracketly.frontend.app.match.view.MatchActivityFragment;
 import edu.bracketly.frontend.app.tournament.add.AddTournamentActivity;
 import edu.bracketly.frontend.app.tournament.details.TournamentDetailsActivity;
 import edu.bracketly.frontend.app.tournament.details.TournamentDetailsFragment;

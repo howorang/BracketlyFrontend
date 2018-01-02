@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.app.Presenter;
+import edu.bracketly.frontend.app.match.list.MatchListPresenter;
+import edu.bracketly.frontend.app.match.list.MyMatchRecyclerViewAdapter;
 import edu.bracketly.frontend.dto.MatchDto;
 import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by howor on 27.12.2017.
  */
 
-public class RoundPresenter implements Presenter {
+public class RoundPresenter implements MatchListPresenter {
 
     private List<MatchDto> matchDtos;
     private SingleEliminationBracketApi singleEliminationBracketApi;
