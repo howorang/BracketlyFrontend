@@ -29,6 +29,10 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
         TextView getEventDayText();
 
         TextView getEventHourText();
+
+        TextView getEventOrganizerText();
+
+        TextView getEventStatusText();
     }
 
     public static final String TOURNAMENT_ID = "tournament_id";
@@ -36,6 +40,8 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
     CollapsingToolbarLayout toolbarLayout;
     TextView eventDay;
     TextView eventHour;
+    TextView eventOragnizer;
+    TextView eventStatus;
 
     @BindView(R.id.fragment_container)
     FrameLayout fragmentContainer;
@@ -71,6 +77,8 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
         toolbarLayout = host.getToolbarLayout();
         eventDay = host.getEventDayText();
         eventHour = host.getEventHourText();
+        eventStatus = host.getEventStatusText();
+        eventOragnizer = host.getEventOrganizerText();
         presenter.setTournamentId(tournamentId);
     }
 

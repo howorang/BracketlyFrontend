@@ -5,7 +5,13 @@ package edu.bracketly.frontend.consts;
  */
 
 public enum TOURNAMENT_STATUS {
-    PLANNING,
-    LIVE,
-    ENDED;
+    PLANNING("In planning"),
+    LIVE("Live"),
+    ENDED("Played out");
+
+    public final String friendlyName;
+
+    TOURNAMENT_STATUS(String friendlyName) {
+        this.friendlyName = friendlyName;
+    }
 }

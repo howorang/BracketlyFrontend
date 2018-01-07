@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import junit.framework.Test;
+
 import butterknife.BindView;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseActivity;
@@ -27,6 +29,12 @@ public class TournamentDetailsActivity extends BaseActivity implements Tournamen
 
     @BindView(R.id.event_hour)
     TextView eventHour;
+
+    @BindView(R.id.event_organizer)
+    TextView eventOrganizer;
+
+    @BindView(R.id.event_status)
+    TextView eventStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,5 +74,15 @@ public class TournamentDetailsActivity extends BaseActivity implements Tournamen
     @Override
     public TextView getEventHourText() {
         return eventHour;
+    }
+
+    @Override
+    public TextView getEventOrganizerText() {
+        return eventOrganizer;
+    }
+
+    @Override
+    public TextView getEventStatusText() {
+        return eventStatus;
     }
 }

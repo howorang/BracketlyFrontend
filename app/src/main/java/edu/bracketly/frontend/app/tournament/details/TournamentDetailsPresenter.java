@@ -108,6 +108,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
         view.eventDay.setText(dayFormat.format(tournament.getEventDate()));
         view.setModifyButtonVisibility(isTournamentOwner());
         view.setStartButtonVisibility(isTournamentOwner());
+        view.eventStatus.setText(tournament.getTournamentStatus().friendlyName);
     }
 
     private boolean isTournamentOwner() {
