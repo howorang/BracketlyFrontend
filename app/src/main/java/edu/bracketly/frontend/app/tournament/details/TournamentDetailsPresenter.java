@@ -65,9 +65,11 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                     tournament = tournamentDto;
                     updateUi();
                     if (tournament.getTournamentStatus() != TOURNAMENT_STATUS.PLANNING) {
+                        view.isTournamentButtonPanelVisible(false);
                         view.setPlanningMode(false);
                         loadBracketDetails();
                     } else {
+                        view.isTournamentButtonPanelVisible(true);
                         view.setPlanningMode(true);
                         loadJoinedPlayers();
                     }

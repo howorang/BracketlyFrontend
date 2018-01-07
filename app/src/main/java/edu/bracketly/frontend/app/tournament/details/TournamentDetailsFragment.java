@@ -23,26 +23,6 @@ import edu.bracketly.frontend.app.BaseFragment;
 
 public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPresenter> {
 
-    public void displayTournamentJoinedMessage() {
-        Toast.makeText(getContext(), "Tournament joined.", Toast.LENGTH_SHORT).show();
-    }
-
-    public void displayTournamentStartedMessage() {
-        Toast.makeText(getContext(), "Tournament started.", Toast.LENGTH_SHORT).show();
-    }
-
-    public void setModifyButtonVisibility(boolean isVisible) {
-        modifyButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-    }
-
-    public void setJoinButtonVisibility(boolean isVisible) {
-        joinButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-    }
-
-    public void setStartButtonVisibility(boolean isVisible) {
-        startButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-    }
-
     public interface Host {
         CollapsingToolbarLayout getToolbarLayout();
 
@@ -131,6 +111,33 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
 
     void setRoundNumber(int roundNumber) {
         viewPager.setCurrentItem(roundNumber - 1);
+    }
+
+    public void displayTournamentJoinedMessage() {
+        Toast.makeText(getContext(), "Tournament joined.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void displayTournamentStartedMessage() {
+        Toast.makeText(getContext(), "Tournament started.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setModifyButtonVisibility(boolean isVisible) {
+        modifyButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    public void setJoinButtonVisibility(boolean isVisible) {
+        joinButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    public void setStartButtonVisibility(boolean isVisible) {
+        startButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    public void isTournamentButtonPanelVisible(boolean isVisible) {
+        Button[] buttons = {joinButton, startButton, modifyButton};
+        for (Button button : buttons) {
+            button.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override
