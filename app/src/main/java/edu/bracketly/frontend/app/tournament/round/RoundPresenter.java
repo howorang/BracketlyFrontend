@@ -7,7 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
-import edu.bracketly.frontend.app.Presenter;
 import edu.bracketly.frontend.app.match.list.MatchListPresenter;
 import edu.bracketly.frontend.app.match.list.MyMatchRecyclerViewAdapter;
 import edu.bracketly.frontend.dto.MatchDto;
@@ -28,12 +27,14 @@ public class RoundPresenter implements MatchListPresenter {
     long bracketId;
     int roundNumber;
     private RoundFragment view;
+    private boolean canEditTournament;
 
     private final CompositeDisposable disposable;
 
     @Inject
-    public RoundPresenter(SingleEliminationBracketApi singleEliminationBracketApi) {
+    public RoundPresenter(SingleEliminationBracketApi singleEliminationBracketApi, boolean canEditTournament) {
         this.singleEliminationBracketApi = singleEliminationBracketApi;
+        this.canEditTournament = canEditTournament;
         disposable = new CompositeDisposable();
     }
 
@@ -88,7 +89,8 @@ public class RoundPresenter implements MatchListPresenter {
     }
 
     public void onMatchClick(int position) {
-        Navigator.openMatchActivity(view.getContext(), bracketId, matchDtos.get(position));
+        Navigator.openMatchActivity(view.getContext(), bracketId, matchDtos.get(position),
+                canEditTournament);
     }
 
     public long getMatchId(int position) {

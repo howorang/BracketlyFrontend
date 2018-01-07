@@ -33,6 +33,7 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
     public static final String ARG_BRACKET_ID = "bracket_id";
     public static final String ARG_MATCH_ID = "match_id";
     public static final String ARG_MATCH_DTO = "match_dto";
+    public static final String ARG_CAN_EDIT = "can_edit";
 
     @BindView(R.id.player_one_fragment_container)
     FrameLayout playerOneFragmentContainer;
@@ -86,10 +87,13 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
         }
         long bracketId = getArguments().getLong(ARG_BRACKET_ID, -11L);
         long matchId = getArguments().getLong(ARG_MATCH_ID, -11L);
+        boolean canEdit = getArguments().getBoolean(ARG_CAN_EDIT, false);
+
         MatchDto matchDto = (MatchDto) getArguments().getSerializable(ARG_MATCH_DTO);
         presenter.setBracketId(bracketId);
         presenter.setMatchId(matchId);
         presenter.setMatchDto(matchDto);
+        presenter.setEditable(canEdit);
         host.getFab().setOnClickListener(view -> presenter.onFabClick());
     }
 
@@ -115,6 +119,14 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
         getFab().setVisibility(View.GONE);
         playerOneWinButton.setVisibility(View.VISIBLE);
         playerTwoWinButton.setVisibility(View.VISIBLE);
+    }
+
+    public void isEditable(boolean isEditable) {
+        if (!isEditable) {
+            getFab().setVisibility(View.GONE);
+            playerOneWinButton.setVisibility(View.GONE);
+            playerTwoWinButton.setVisibility(View.GONE);
+        }
     }
 
     public void close() {

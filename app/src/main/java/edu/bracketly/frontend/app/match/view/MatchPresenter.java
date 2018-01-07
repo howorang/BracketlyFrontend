@@ -20,6 +20,7 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
     private long bracketId;
     private MatchDto matchDto;
     private BracketApi bracketApi;
+    private boolean isEditable;
 
     @Inject
     protected MatchPresenter(MatchActivityFragment view, BracketApi bracketApi) {
@@ -34,6 +35,7 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
         if (matchDto == null) {
             //LOAD DTO
         }
+        view.isEditable(isEditable);
         updateGui(matchDto.getMatchStatus());
         view.replaceFragment(view.playerOneFragmentContainer.getId(),
                 PlayerFragment.newInstance(matchDto.getSeats().get(0).getPlayer()));
@@ -43,18 +45,20 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
     }
 
     private void updateGui(MATCH_STATUS matchStatus) {
-        switch (matchStatus) {
-            case NOT_PLAYED:
+        if (isEditable) {
+            switch (matchStatus) {
+                case NOT_PLAYED:
 
-                break;
+                    break;
 
-            case LIVE:
-                view.markLive();
-                break;
+                case LIVE:
+                    view.markLive();
+                    break;
 
-            case PLAYED:
-                view.matchPlayed();
-                break;
+                case PLAYED:
+                    view.matchPlayed();
+                    break;
+            }
         }
     }
 
@@ -68,6 +72,10 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
 
     public void setMatchDto(MatchDto matchDto) {
         this.matchDto = matchDto;
+    }
+
+    public void setEditable(boolean editable) {
+        isEditable = editable;
     }
 
     public void onFabClick() {

@@ -162,6 +162,6 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     }
 
     public RoundPresenter getRoundPresenter() {
-        return new RoundPresenter(singleEliminationBracketApi);
+        return new RoundPresenter(singleEliminationBracketApi, isTournamentOwner());
     }
 }

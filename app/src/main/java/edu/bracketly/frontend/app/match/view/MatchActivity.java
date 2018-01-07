@@ -35,6 +35,8 @@ public class MatchActivity extends BaseActivity implements MatchActivityFragment
                     getIntent().getLongExtra(MatchActivityFragment.ARG_MATCH_ID, -11L));
             arguments.putSerializable(MatchActivityFragment.ARG_MATCH_DTO,
                     getIntent().getSerializableExtra(MatchActivityFragment.ARG_MATCH_DTO));
+            arguments.putBoolean(MatchActivityFragment.ARG_CAN_EDIT,
+                    getIntent().getBooleanExtra(MatchActivityFragment.ARG_CAN_EDIT, false));
 
             MatchActivityFragment fragment = new MatchActivityFragment();
             fragment.setArguments(arguments);
