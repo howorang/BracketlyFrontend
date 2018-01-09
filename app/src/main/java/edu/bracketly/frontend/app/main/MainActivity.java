@@ -38,5 +38,6 @@ public class MainActivity extends BaseActivity {
                     return false;
             }
         });
+        bottomNavigationView.setSelectedItemId(R.id.navigation_start);
     }
 }
