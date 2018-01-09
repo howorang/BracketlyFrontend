@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.bracketly.frontend.R;
-import edu.bracketly.frontend.app.tournament.round.RoundPresenter;
 
 public class MyMatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchViewHolder> {
 
@@ -20,7 +19,7 @@ public class MyMatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchViewHo
     @Override
     public MatchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_round, parent, false);
+                .inflate(R.layout.round_row, parent, false);
         return new MatchViewHolder(v);
     }
 

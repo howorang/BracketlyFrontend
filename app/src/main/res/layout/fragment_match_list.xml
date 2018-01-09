@@ -14,7 +14,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/fragment_round" />
+        tools:listitem="@layout/round_row" />
 
     <include layout="@layout/empty_list_placeholder" />
 </FrameLayout>

@@ -4,15 +4,18 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:gravity="center_horizontal">
+    android:gravity="center">
 
     <TextView
         android:id="@+id/player_one_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Player 1" />
 
     <TextView
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -22,5 +25,7 @@
         android:id="@+id/player_two_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Player 2" />
 </LinearLayout>
