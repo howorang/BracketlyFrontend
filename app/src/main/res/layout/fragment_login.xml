@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context="edu.bracketly.frontend.app.login.LoginActivityFragment"
     tools:showIn="@layout/activity_login"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
@@ -19,7 +20,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
