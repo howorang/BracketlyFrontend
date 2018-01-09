@@ -20,7 +20,8 @@
         <activity
             android:name=".app.login.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +31,8 @@
         <activity
             android:name=".app.tournament.add.AddTournamentActivity"
             android:label="@string/title_activity_add_tournament"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".app.tournament.details.TournamentDetailsActivity"
             android:label="@string/title_item_detail"
