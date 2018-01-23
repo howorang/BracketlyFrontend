@@ -117,11 +117,8 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
     }
 
     public void setPlanningMode(boolean planningMode) {
-        if (planningMode) {
-            viewPager.setVisibility(View.GONE);
-        } else {
-            viewPager.setVisibility(View.VISIBLE);
-        }
+        fragmentContainer.setVisibility(planningMode ? View.VISIBLE : View.GONE);
+        viewPager.setVisibility(planningMode ? View.GONE : View.VISIBLE);
     }
 
     void replaceFragment(@IdRes int containerId, Fragment fragment) {
