@@ -30,9 +30,18 @@
             <EditText
                 android:id="@+id/event_date_input"
                 android:inputType="date"
+                android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/tournament_event_date_hint" />
+
+            <EditText
+                android:id="@+id/event_hour_input"
+                android:inputType="date"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp" />
         </LinearLayout>
 
         <LinearLayout
