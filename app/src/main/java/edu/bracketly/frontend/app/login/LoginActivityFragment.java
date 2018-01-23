@@ -63,4 +63,9 @@ public class LoginActivityFragment extends BaseFragment<LoginPresenter> {
     public void onBadCredentials() {
         Toast.makeText(getContext(), "Bad credentials", Toast.LENGTH_SHORT).show();
     }
+
+    @OnClick(R.id.sign_up_link)
+    void onSingUpLinkClick() {
+        presenter.onSignUpLinkClick();
+    }
 }

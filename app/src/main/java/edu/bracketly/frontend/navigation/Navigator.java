@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import edu.bracketly.frontend.app.main.MainActivity;
 import edu.bracketly.frontend.app.match.view.MatchActivity;
 import edu.bracketly.frontend.app.match.view.MatchActivityFragment;
+import edu.bracketly.frontend.app.signup.SignUpActivity;
 import edu.bracketly.frontend.app.tournament.add.AddTournamentActivity;
 import edu.bracketly.frontend.app.tournament.details.TournamentDetailsActivity;
 import edu.bracketly.frontend.app.tournament.details.TournamentDetailsFragment;
@@ -48,6 +49,11 @@ public final class Navigator {
         intent.putExtra(MatchActivityFragment.ARG_BRACKET_ID, bracketId);
         intent.putExtra(MatchActivityFragment.ARG_MATCH_DTO, matchDto);
         intent.putExtra(MatchActivityFragment.ARG_CAN_EDIT, canEdit);
+        context.startActivity(intent);
+    }
+
+    public static void openSingUpActivity(Context context) {
+        Intent intent = new Intent(context, SignUpActivity.class);
         context.startActivity(intent);
     }
 }

@@ -45,6 +45,10 @@
         <activity
             android:name=".app.match.view.MatchActivity"
             android:label="@string/title_activity_match"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".app.signup.SignUpActivity"
+            android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

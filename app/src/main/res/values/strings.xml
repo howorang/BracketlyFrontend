@@ -27,4 +27,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="winner_button_text">Mark as winner</string>
     <string name="ranking">Ranking</string>
+    <string name="sign_up"><u>Sign up</u></string>
+    <string name="log_in">Log in</string>
+    <string name="password">password</string>
+    <string name="username">username</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
 </resources>

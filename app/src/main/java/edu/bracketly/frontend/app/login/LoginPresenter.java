@@ -8,6 +8,7 @@ import edu.bracketly.frontend.api.UserApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import edu.bracketly.frontend.app.UserContextHelper;
 import edu.bracketly.frontend.dto.UserDto;
+import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -68,5 +69,9 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
                     break;
             }
         } else throw new RuntimeException(throwable);
+    }
+
+    void onSignUpLinkClick() {
+        Navigator.openSingUpActivity(view.getContext());
     }
 }
