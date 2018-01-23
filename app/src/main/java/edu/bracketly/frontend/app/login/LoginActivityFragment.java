@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,9 +59,6 @@ public class LoginActivityFragment extends BaseFragment<LoginPresenter> {
         Navigator.openMainActivity(getContext());
     }
 
-    public void onBadCredentials() {
-        Toast.makeText(getContext(), "Bad credentials", Toast.LENGTH_SHORT).show();
-    }
 
     @OnClick(R.id.sign_up_link)
     void onSingUpLinkClick() {

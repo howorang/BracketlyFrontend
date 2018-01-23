@@ -48,4 +48,8 @@ public class SignUpActivity extends BaseActivity {
         Toast.makeText(this, "Signed Up!", Toast.LENGTH_LONG).show();
         finish();
     }
+
+    public void displayValidationErrorMessage() {
+        Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
+    }
 }

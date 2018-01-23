@@ -12,7 +12,6 @@ import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.HttpException;
 
 /**
  * Created by howor on 22.12.2017.
@@ -41,14 +40,14 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
     }
 
     public void login(String username, String password) {
-        authInterceptor.setCredentials(username, password);
         Disposable subscribe = userApi.aboutMe()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<UserDto>() {
                     @Override
-                    public void onNext(UserDto userDetailsDto) {
-                        userContextHelper.setCurrentUser(userDetailsDto);
+                    public void onNext(UserDto userDto) {
+                        userContextHelper.setCurrentUser(userDto);
+                        authInterceptor.setCredentials(username, password);
                         view.onLogin();
                     }
 
@@ -60,15 +59,9 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
         disposable.add(subscribe);
     }
 
-    private void handleError(Throwable throwable) {
-        if (throwable instanceof HttpException) {
-            HttpException httpException = (HttpException) throwable;
-            switch (httpException.code()) {
-                case 401:
-                    view.onBadCredentials();
-                    break;
-            }
-        } else throw new RuntimeException(throwable);
+    private void handleError(Throwable e) {
+        String message = getErrorMessage(e);
+        view.displayMessage(message);
     }
 
     void onSignUpLinkClick() {

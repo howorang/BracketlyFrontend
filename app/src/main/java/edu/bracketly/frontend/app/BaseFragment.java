@@ -1,5 +1,7 @@
 package edu.bracketly.frontend.app;
 
+import android.widget.Toast;
+
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerFragment;
@@ -23,5 +25,9 @@ public abstract class BaseFragment<P extends Presenter> extends DaggerFragment {
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+    }
+
+    public void displayMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 }

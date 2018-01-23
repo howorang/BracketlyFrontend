@@ -9,7 +9,6 @@ import dagger.Module;
 import dagger.Provides;
 import edu.bracketly.frontend.api.BasicAuthInterceptor;
 import edu.bracketly.frontend.api.BracketApi;
-import edu.bracketly.frontend.api.CustomAdapterFactory;
 import edu.bracketly.frontend.api.PlayerApi;
 import edu.bracketly.frontend.api.RuntimeTypeAdapterFactory;
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
@@ -69,7 +68,7 @@ public abstract class ApiModule {
     static Retrofit provideRetrofit(OkHttpClient client, Gson gson) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addCallAdapterFactory(CustomAdapterFactory.create(RxJava2CallAdapterFactory.create()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();

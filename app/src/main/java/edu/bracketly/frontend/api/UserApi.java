@@ -15,7 +15,7 @@ public interface UserApi {
     @GET("user/me")
     public Observable<UserDto> aboutMe();
 
-    @POST("user/")
+    @POST("user")
     public Completable createUser(@Query("username") String username,
                                   @Query("password") String password);
 }

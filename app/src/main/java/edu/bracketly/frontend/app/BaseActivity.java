@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -35,5 +36,9 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(containerViewId, fragment)
                 .commit();
+    }
+
+    public void displayMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
