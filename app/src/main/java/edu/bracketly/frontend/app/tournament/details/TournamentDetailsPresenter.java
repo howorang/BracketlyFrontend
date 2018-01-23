@@ -18,6 +18,7 @@ import edu.bracketly.frontend.app.tournament.round.RoundPresenter;
 import edu.bracketly.frontend.consts.TOURNAMENT_STATUS;
 import edu.bracketly.frontend.dto.SingleBracketStateDto;
 import edu.bracketly.frontend.dto.TournamentDto;
+import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -149,7 +150,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     }
 
     void onModifyButtonClick() {
-
+        Navigator.openModifyTournamentActivity(view.getContext(), tournament);
     }
 
     void onStartButtonClick() {

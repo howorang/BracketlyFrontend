@@ -18,6 +18,7 @@ import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import edu.bracketly.frontend.consts.BRACKET_TYPE;
 import edu.bracketly.frontend.consts.SEEDING_STRATEGY;
+import edu.bracketly.frontend.dto.TournamentDto;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -26,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by howor on 25.12.2017.
  */
 
-public class AddTournamentPresenter extends BasePresenter<AddTournamentFragment> {
+public class AddModifyTournamentPresenter extends BasePresenter<AddModifyTournamentFragment> {
 
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss", Locale.getDefault());
     private static DateFormat prettydateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -36,19 +37,39 @@ public class AddTournamentPresenter extends BasePresenter<AddTournamentFragment>
 
     private TournamentApi tournamentApi;
 
+    private boolean editMode;
+    private TournamentDto tournamentDto;
+
+    public void setTournamentDto(TournamentDto tournamentDto) {
+        this.tournamentDto = tournamentDto;
+    }
+
     @Inject
-    protected AddTournamentPresenter(AddTournamentFragment view, TournamentApi tournamentApi) {
+    protected AddModifyTournamentPresenter(AddModifyTournamentFragment view, TournamentApi tournamentApi) {
         super(view);
         this.tournamentApi = tournamentApi;
     }
 
     @Override
     public void onResume() {
-        Date tomorrow = getTomorrow();
-        view.eventDateinput.setText(prettydateFormat.format(tomorrow));
-        view.eventHourInput.setText(prettyHourFormat.format(tomorrow));
+        editMode = tournamentDto != null;
         view.bracketTypeSpinner.setAdapter(new ArrayAdapter<>(view.getContext(), R.layout.spinner_simple_item, BRACKET_TYPE.values()));
         view.bracketSeedingSpinner.setAdapter(new ArrayAdapter<>(view.getContext(), R.layout.spinner_simple_item, SEEDING_STRATEGY.values()));
+        initFields();
+    }
+
+    private void initFields() {
+        if (editMode) {
+            eventDateCalendar.setTime(tournamentDto.getEventDate());
+            updateViewDate();
+            view.nameinput.setText(tournamentDto.getName());
+            view.setBracketSpinnerValue(tournamentDto.getBracketType());
+            view.setSeedingSpinnerValue(tournamentDto.getSeedingStrategy());
+        } else {
+            Date tomorrow = getTomorrow();
+            eventDateCalendar.setTime(tomorrow);
+            updateViewDate();
+        }
     }
 
     private Date getTomorrow() {
@@ -67,6 +88,27 @@ public class AddTournamentPresenter extends BasePresenter<AddTournamentFragment>
         }
         BRACKET_TYPE bracketType = (BRACKET_TYPE) view.bracketTypeSpinner.getSelectedItem();
         SEEDING_STRATEGY seedingStrategy = (SEEDING_STRATEGY) view.bracketSeedingSpinner.getSelectedItem();
+        if (editMode) {
+            saveChanges(bracketType, seedingStrategy);
+        } else {
+            saveNewTournament(bracketType, seedingStrategy);
+        }
+    }
+
+    private void saveChanges(BRACKET_TYPE bracketType, SEEDING_STRATEGY seedingStrategy) {
+        Disposable subscribe = tournamentApi
+                .editTournament(tournamentDto.getId(), view.getTournamentName(),
+                        dateFormat.format(eventDateCalendar.getTime()), bracketType.name(),
+                        seedingStrategy.name()).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    Toast.makeText(view.getContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+                    view.close();
+                });
+        disposable.add(subscribe);
+    }
+
+    private void saveNewTournament(BRACKET_TYPE bracketType, SEEDING_STRATEGY seedingStrategy) {
         Disposable subscribe = tournamentApi
                 .createTournament(view.getTournamentName(), dateFormat.format(eventDateCalendar.getTime()), bracketType.name(), seedingStrategy.name())
                 .subscribeOn(Schedulers.io())

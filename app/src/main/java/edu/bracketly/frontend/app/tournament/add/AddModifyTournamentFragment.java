@@ -3,6 +3,7 @@ package edu.bracketly.frontend.app.tournament.add;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseFragment;
+import edu.bracketly.frontend.consts.BRACKET_TYPE;
+import edu.bracketly.frontend.consts.SEEDING_STRATEGY;
+import edu.bracketly.frontend.dto.TournamentDto;
 import edu.bracketly.frontend.utils.DatePickerFragment;
 import edu.bracketly.frontend.utils.TimePickerFragment;
 
@@ -24,7 +28,9 @@ import edu.bracketly.frontend.utils.TimePickerFragment;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AddTournamentFragment extends BaseFragment<AddTournamentPresenter> {
+public class AddModifyTournamentFragment extends BaseFragment<AddModifyTournamentPresenter> {
+
+    public static final String TOURNAMENT_DTO = "tournamentDto";
 
     @BindView(R.id.name_input)
     EditText nameinput;
@@ -43,9 +49,17 @@ public class AddTournamentFragment extends BaseFragment<AddTournamentPresenter> 
 
     private Unbinder unbinder;
 
-    public AddTournamentFragment() {
+    public AddModifyTournamentFragment() {
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments().containsKey(TOURNAMENT_DTO)) {
+            TournamentDto tournamentDto = (TournamentDto) getArguments().getSerializable(TOURNAMENT_DTO);
+            presenter.setTournamentDto(tournamentDto);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,4 +127,22 @@ public class AddTournamentFragment extends BaseFragment<AddTournamentPresenter> 
     void setEventTimeInputValue(String vaule) {
         eventHourInput.setText(vaule);
     }
+
+    public void setBracketSpinnerValue(BRACKET_TYPE bracketSpinnerValue) {
+        setSpinnerValue(bracketTypeSpinner, bracketSpinnerValue);
+    }
+
+    public void setSeedingSpinnerValue(SEEDING_STRATEGY spinnerValue) {
+        setSpinnerValue(bracketSeedingSpinner, spinnerValue);
+    }
+
+    private void setSpinnerValue(Spinner spinner, Object value) {
+        int i = 0;
+        for (i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(value))
+                break;
+        }
+        spinner.setSelection(i);
+    }
+
 }

@@ -7,5 +7,5 @@ import dagger.Module;
  */
 
 @Module
-public abstract class AddTournamentFragmentModule {
+public abstract class AddModifyTournamentFragmentModule {
 }

@@ -8,10 +8,12 @@ import edu.bracketly.frontend.app.main.MainActivity;
 import edu.bracketly.frontend.app.match.view.MatchActivity;
 import edu.bracketly.frontend.app.match.view.MatchActivityFragment;
 import edu.bracketly.frontend.app.signup.SignUpActivity;
-import edu.bracketly.frontend.app.tournament.add.AddTournamentActivity;
+import edu.bracketly.frontend.app.tournament.add.AddModifyTournamentActivity;
+import edu.bracketly.frontend.app.tournament.add.AddModifyTournamentFragment;
 import edu.bracketly.frontend.app.tournament.details.TournamentDetailsActivity;
 import edu.bracketly.frontend.app.tournament.details.TournamentDetailsFragment;
 import edu.bracketly.frontend.dto.MatchDto;
+import edu.bracketly.frontend.dto.TournamentDto;
 
 /**
  * Created by howor on 23.12.2017.
@@ -27,7 +29,7 @@ public final class Navigator {
     }
 
     public static void openAddTournamentActivity(Context context) {
-        Intent intent = new Intent(context, AddTournamentActivity.class);
+        Intent intent = new Intent(context, AddModifyTournamentActivity.class);
         context.startActivity(intent);
     }
 
@@ -54,6 +56,12 @@ public final class Navigator {
 
     public static void openSingUpActivity(Context context) {
         Intent intent = new Intent(context, SignUpActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void openModifyTournamentActivity(Context context, TournamentDto tournament) {
+        Intent intent = new Intent(context, AddModifyTournamentActivity.class);
+        intent.putExtra(AddModifyTournamentFragment.TOURNAMENT_DTO, tournament);
         context.startActivity(intent);
     }
 }

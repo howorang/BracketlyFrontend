@@ -13,12 +13,12 @@ import edu.bracketly.frontend.dagger.FragmentScope;
  */
 
 @Module(includes = BaseActivityModule.class)
-public abstract class AddTournamentActivityModule {
+public abstract class AddModifyTournamentActivityModule {
     @FragmentScope
-    @ContributesAndroidInjector(modules = {AddTournamentFragmentModule.class})
-    abstract AddTournamentFragment addTournamentFragmentInjector();
+    @ContributesAndroidInjector(modules = {AddModifyTournamentFragmentModule.class})
+    abstract AddModifyTournamentFragment addTournamentFragmentInjector();
 
     @Binds
     @ActivityScope
-    abstract BaseActivity bindBaseActivity(AddTournamentActivity tournamentActivity);
+    abstract BaseActivity bindBaseActivity(AddModifyTournamentActivity tournamentActivity);
 }

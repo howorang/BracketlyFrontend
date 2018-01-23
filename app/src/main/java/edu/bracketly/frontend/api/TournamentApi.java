@@ -43,7 +43,11 @@ public interface TournamentApi {
     Observable<TournamentStartResponseDto> startTournament(@Path("tournamentId") Long tournamentId);
 
     @PUT("/tournament/{tournamentId}")
-    Completable editTournament(@Path("tournamentId") Long tournamentId);
+    Completable editTournament(@Path("tournamentId") Long tournamentId,
+                               @Query("name") String name,
+                               @Query("eventDate") String eventDate,
+                               @Query("bracketType") String bracketType,
+                               @Query("seedingStrategy") String seedingStrategy);
 
     @GET("/tournament/{tournamentId}/players")
     Observable<List<PlayerDto>> getTournamentPlayers(@Path("tournamentId") Long tournamentId);
