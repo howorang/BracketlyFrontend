@@ -6,16 +6,17 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseFragment;
@@ -52,15 +53,6 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
     @BindView(R.id.no_items_message)
     TextView noItemsMessage;
 
-    @BindView(R.id.modify_button)
-    Button modifyButton;
-
-    @BindView(R.id.start_button)
-    Button startButton;
-
-    @BindView(R.id.join_button)
-    Button joinButton;
-
     private Unbinder unbinder;
 
     public TournamentDetailsFragment() {
@@ -82,27 +74,46 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
         presenter.setTournamentId(tournamentId);
     }
 
-    @OnClick(R.id.join_button)
-    public void onJoinClick(View view) {
-        presenter.onJoinButtonClick();
-    }
-
-    @OnClick(R.id.modify_button)
-    public void onModifyClick(View view) {
-        presenter.onModifyButtonClick();
-    }
-
-    @OnClick(R.id.start_button)
-    public void onStartClick(View view) {
-        presenter.onStartButtonClick();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tournament_detail, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        setHasOptionsMenu(true);
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if (presenter.showJoinOption()) {
+            menu.add(0, 0, 0, "Join");
+        }
+        if (presenter.showEditOption()) {
+            menu.add(0, 1, 0, "Edit");
+        }
+        if (presenter.showStartOption()) {
+            menu.add(0, 2, 0, "Start");
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+                presenter.onJoinButtonClick();
+                break;
+            case 1:
+                presenter.onModifyButtonClick();
+                break;
+            case 2:
+                presenter.onStartButtonClick();
+                break;
+        }
+        return true;
+    }
+
+    void invalidateActionBarMenu() {
+        getActivity().invalidateOptionsMenu();
     }
 
     public void setPlanningMode(boolean planningMode) {
@@ -127,25 +138,6 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
 
     public void displayTournamentStartedMessage() {
         Toast.makeText(getContext(), "Tournament started.", Toast.LENGTH_SHORT).show();
-    }
-
-    public void setModifyButtonVisibility(boolean isVisible) {
-        modifyButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-    }
-
-    public void setJoinButtonVisibility(boolean isVisible) {
-        joinButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-    }
-
-    public void setStartButtonVisibility(boolean isVisible) {
-        startButton.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-    }
-
-    public void isTournamentButtonPanelVisible(boolean isVisible) {
-        Button[] buttons = {joinButton, startButton, modifyButton};
-        for (Button button : buttons) {
-            button.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-        }
     }
 
     @Override

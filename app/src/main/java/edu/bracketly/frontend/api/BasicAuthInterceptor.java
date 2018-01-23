@@ -19,6 +19,10 @@ public class BasicAuthInterceptor implements Interceptor {
         this.credentials = Credentials.basic(username, password);
     }
 
+    public void clearCredentials() {
+        credentials = null;
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();

@@ -65,11 +65,9 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                     tournament = tournamentDto;
                     updateUi();
                     if (tournament.getTournamentStatus() != TOURNAMENT_STATUS.PLANNING) {
-                        view.isTournamentButtonPanelVisible(false);
                         view.setPlanningMode(false);
                         loadBracketDetails();
                     } else {
-                        view.isTournamentButtonPanelVisible(true);
                         view.setPlanningMode(true);
                         loadJoinedPlayers();
                     }
@@ -103,12 +101,16 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     }
 
     private void updateUi() {
+        updateActionBar();
         view.toolbarLayout.setTitle(getTitle());
         view.eventHour.setText(hourFormat.format(tournament.getEventDate()));
         view.eventDay.setText(dayFormat.format(tournament.getEventDate()));
-        view.setModifyButtonVisibility(isTournamentOwner());
-        view.setStartButtonVisibility(isTournamentOwner());
         view.eventStatus.setText(tournament.getTournamentStatus().friendlyName);
+    }
+
+    private void updateActionBar() {
+        view.invalidateActionBarMenu();
+
     }
 
     private boolean isTournamentOwner() {
@@ -163,5 +165,17 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
 
     public RoundPresenter getRoundPresenter() {
         return new RoundPresenter(singleEliminationBracketApi, isTournamentOwner());
+    }
+
+    public boolean showJoinOption() {
+        return tournament != null && tournament.getTournamentStatus() == TOURNAMENT_STATUS.PLANNING;
+    }
+
+    public boolean showEditOption() {
+        return tournament != null && isTournamentOwner() && tournament.getTournamentStatus() == TOURNAMENT_STATUS.PLANNING;
+    }
+
+    public boolean showStartOption() {
+        return tournament != null && tournament.getTournamentStatus() == TOURNAMENT_STATUS.PLANNING;
     }
 }

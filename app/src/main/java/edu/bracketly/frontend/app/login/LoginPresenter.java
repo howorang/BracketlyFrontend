@@ -40,6 +40,7 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
     }
 
     public void login(String username, String password) {
+        authInterceptor.setCredentials(username, password);
         Disposable subscribe = userApi.aboutMe()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,7 +48,6 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
                     @Override
                     public void onNext(UserDto userDto) {
                         userContextHelper.setCurrentUser(userDto);
-                        authInterceptor.setCredentials(username, password);
                         view.onLogin();
                     }
 
@@ -60,6 +60,7 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
     }
 
     private void handleError(Throwable e) {
+        authInterceptor.clearCredentials();
         String message = getErrorMessage(e);
         view.displayMessage(message);
     }
