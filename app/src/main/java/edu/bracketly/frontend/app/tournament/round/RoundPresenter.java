@@ -44,6 +44,7 @@ public class RoundPresenter implements MatchListPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(roundDto -> {
+                    if (view == null) return;
                     matchDtos = roundDto.getMatches();
                     if (view.list.getAdapter() == null) {
                         setupAdapter();

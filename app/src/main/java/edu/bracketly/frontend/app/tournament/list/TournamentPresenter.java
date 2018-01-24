@@ -82,6 +82,7 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         tournamentSimpleDtos -> {
+                            if (view == null) return;
                             if (tournamentSimpleDtos.size() < pageSize) {
                                 isLastPage = true;
                             }

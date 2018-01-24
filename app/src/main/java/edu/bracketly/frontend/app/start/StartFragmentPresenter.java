@@ -1,7 +1,5 @@
 package edu.bracketly.frontend.app.start;
 
-import android.support.v7.widget.RecyclerView;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -42,6 +40,7 @@ public class StartFragmentPresenter extends BasePresenter<StartFragment>
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((matchDtos) -> {
+                    if (view == null) return;
                     matches = matchDtos.getLiveMatches();
                     view.notifyDataSetChanged();
                 });

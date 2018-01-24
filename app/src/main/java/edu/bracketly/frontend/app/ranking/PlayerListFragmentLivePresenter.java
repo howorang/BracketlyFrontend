@@ -79,6 +79,7 @@ public class PlayerListFragmentLivePresenter extends BasePresenter<PlayerListFra
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dtos -> {
+                    if (view == null) return;
                     if (dtos.size() < pageSize) {
                         isLastPage = true;
                     }

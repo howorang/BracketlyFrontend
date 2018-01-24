@@ -160,6 +160,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dto -> {
+                    if (view == null) return;
                     view.displayTournamentStartedMessage();
                     onResume();
                 });
