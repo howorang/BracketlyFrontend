@@ -20,9 +20,11 @@ public class PlayerPresenter extends BasePresenter<PlayerFragment> {
 
     @Override
     public void onResume() {
-        view.username.setText(playerDto.getUsername());
-        view.rank.setText(String.valueOf(playerDto.getRank()));
-        view.matchesPlayed.setText(String.valueOf(0));
+        if (playerDto != null) {
+            view.username.setText(playerDto.getUsername());
+            view.rank.setText(String.valueOf(playerDto.getRank()));
+            view.matchesPlayed.setText(String.valueOf(0));
+        }
     }
 
     void setPlayer(PlayerDto player) {

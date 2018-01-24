@@ -2,11 +2,11 @@ package edu.bracketly.frontend.app.tournament.details;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
-
-import junit.framework.Test;
 
 import butterknife.BindView;
 import edu.bracketly.frontend.R;
@@ -59,6 +59,17 @@ public class TournamentDetailsActivity extends BaseActivity implements Tournamen
                     .add(R.id.item_detail_container, fragment)
                     .commit();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                break;
+        }
+        return true;
     }
 
     @Override

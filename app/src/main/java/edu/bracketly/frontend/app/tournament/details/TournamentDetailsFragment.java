@@ -72,6 +72,13 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
         eventStatus = host.getEventStatusText();
         eventOragnizer = host.getEventOrganizerText();
         presenter.setTournamentId(tournamentId);
+        presenter.restoreState(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        presenter.onSaveInstanceState(outState);
     }
 
     @Override

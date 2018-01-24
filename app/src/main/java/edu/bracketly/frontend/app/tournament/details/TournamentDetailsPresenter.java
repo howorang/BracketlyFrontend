@@ -1,5 +1,7 @@
 package edu.bracketly.frontend.app.tournament.details;
 
+import android.os.Bundle;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -32,6 +34,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
     private static final SimpleDateFormat hourFormat = new SimpleDateFormat("HH::mm", Locale.getDefault());
     private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
+    private static final String SELECTED_ROUND = "selectedRound";
 
     private long tournamentId;
     private TournamentDto tournament;
@@ -95,7 +98,6 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                             view.viewPager.setAdapter(
                                     new RoundPagerAdapter(view.getFragmentManager(), this));
                         }
-                        view.setRoundNumber(bracketStateDto.getCurrentRound());
                     });
             disposable.add(subscribe);
         }
@@ -178,5 +180,17 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
 
     public boolean showStartOption() {
         return tournament != null && tournament.getTournamentStatus() == TOURNAMENT_STATUS.PLANNING;
+    }
+
+    public void restoreState(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(SELECTED_ROUND)) {
+                view.viewPager.setCurrentItem(savedInstanceState.getInt(SELECTED_ROUND));
+            }
+        }
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SELECTED_ROUND, view.viewPager.getCurrentItem());
     }
 }

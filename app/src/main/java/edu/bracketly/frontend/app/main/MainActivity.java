@@ -12,6 +12,8 @@ import edu.bracketly.frontend.app.tournament.list.TournamentListFragment;
 
 public class MainActivity extends BaseActivity {
 
+    private static final String CHOSEN_FRAGMENT = "chosenFragment";
+
     @BindView(R.id.navigation)
     BottomNavigationView bottomNavigationView;
 
@@ -38,6 +40,16 @@ public class MainActivity extends BaseActivity {
                     return false;
             }
         });
-        bottomNavigationView.setSelectedItemId(R.id.navigation_start);
+        if (savedInstanceState != null && savedInstanceState.containsKey(CHOSEN_FRAGMENT)) {
+            bottomNavigationView.setSelectedItemId(savedInstanceState.getInt(CHOSEN_FRAGMENT));
+        } else {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_start);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(CHOSEN_FRAGMENT, bottomNavigationView.getSelectedItemId());
     }
 }

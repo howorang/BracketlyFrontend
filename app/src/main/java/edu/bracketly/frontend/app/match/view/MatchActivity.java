@@ -2,7 +2,9 @@ package edu.bracketly.frontend.app.match.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import butterknife.BindView;
@@ -24,6 +26,9 @@ public class MatchActivity extends BaseActivity implements MatchActivityFragment
         setContentView(R.layout.activity_match);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
@@ -45,6 +50,17 @@ public class MatchActivity extends BaseActivity implements MatchActivityFragment
                     .add(R.id.fragment_container, fragment)
                     .commit();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                break;
+        }
+        return true;
     }
 
     @Override

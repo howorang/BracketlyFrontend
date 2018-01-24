@@ -1,7 +1,9 @@
 package edu.bracketly.frontend.app.tournament.add;
 
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.app.BaseActivity;
@@ -14,6 +16,9 @@ public class AddModifyTournamentActivity extends BaseActivity {
         setContentView(R.layout.activity_add_tournament);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
@@ -31,4 +36,14 @@ public class AddModifyTournamentActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                break;
+        }
+        return true;
+    }
 }
