@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Bracketly App</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="app_name">Bracketly</string>
+    <string name="title_activity_login">Welcome</string>
     <string name="action_settings">Settings</string>
     <string name="profile">Profile</string>
     <string name="start">Start</string>
     <string name="tournaments">Tournaments</string>
-    <string name="title_activity_add_tournament">AddTournamentActivity</string>
+    <string name="title_activity_add_tournament">Add Tournament</string>
     <string name="tournament_name">Name:</string>
     <string name="tournament_name_hint">Tournament name</string>
     <string name="tournament_event_date">Event date:</string>
@@ -21,7 +21,7 @@
     <string name="vs">VS</string>
     <string name="no_items_on_list">No items on list.</string>
     <string name="tournament_not_started_message">Tournament has not started yet</string>
-    <string name="title_activity_match">MatchActivity</string>
+    <string name="title_activity_match">Match</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -31,5 +31,5 @@
     <string name="log_in">Log in</string>
     <string name="password">password</string>
     <string name="username">username</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_sign_up">Sign Up</string>
 </resources>
