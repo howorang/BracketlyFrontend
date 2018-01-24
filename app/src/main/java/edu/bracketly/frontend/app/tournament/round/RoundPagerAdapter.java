@@ -32,6 +32,6 @@ public class RoundPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return String.valueOf(position + 1);
+        return "Round " + (position + 1);
     }
 }
