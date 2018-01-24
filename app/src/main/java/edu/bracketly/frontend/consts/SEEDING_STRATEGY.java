@@ -5,8 +5,8 @@ package edu.bracketly.frontend.consts;
  */
 
 public enum SEEDING_STRATEGY {
-    RANDOM("Random matching"),
-    BEST_WORST("Match worst with best");
+    RANDOM("Random"),
+    BEST_WORST("Worst with best");
 
     public final String friendlyName;
 

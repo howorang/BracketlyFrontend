@@ -5,7 +5,7 @@ package edu.bracketly.frontend.consts;
  */
 
 public enum BRACKET_TYPE {
-    SINGLE_ELIMINATION("Single elimination bracket");
+    SINGLE_ELIMINATION("Single elimination");
 
     public final String firendlyName;
 
