@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import edu.bracketly.frontend.api.TournamentApi;
 import edu.bracketly.frontend.app.BasePresenter;
+import edu.bracketly.frontend.app.UserContextHelper;
 import edu.bracketly.frontend.dto.TournamentSimpleDto;
 import edu.bracketly.frontend.navigation.Navigator;
 import edu.bracketly.frontend.utils.PaginationScrollListener;
@@ -27,13 +28,16 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
     private boolean isLastPage;
     private int pageSize = 10;
     private TournamentApi tournamentApi;
+    private UserContextHelper contextHelper;
     private List<TournamentSimpleDto> tournaments = new ArrayList<>();
 
 
     @Inject
-    protected TournamentPresenter(TournamentListFragment view, TournamentApi tournamentApi) {
+    protected TournamentPresenter(TournamentListFragment view, TournamentApi tournamentApi,
+                                  UserContextHelper contextHelper) {
         super(view);
         this.tournamentApi = tournamentApi;
+        this.contextHelper = contextHelper;
     }
 
 
@@ -109,5 +113,9 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
 
     public long getId(int position) {
         return tournaments.get(position).getId();
+    }
+
+    public boolean isTournamentOwner(int position) {
+        return tournaments.get(position).getOrganizerId().equals(contextHelper.getCurrentUser().getId());
     }
 }

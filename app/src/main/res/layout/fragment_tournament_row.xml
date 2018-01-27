@@ -37,4 +37,12 @@
         android:id="@+id/tournament_status_icon"
         android:layout_width="@dimen/player_result_icon_size"
         android:layout_height="@dimen/player_result_icon_size" />
+
+    <TextView
+        android:id="@+id/tournament_owner_label"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:text="Owner" />
 </LinearLayout>

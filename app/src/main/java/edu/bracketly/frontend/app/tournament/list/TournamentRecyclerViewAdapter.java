@@ -29,6 +29,7 @@ public class TournamentRecyclerViewAdapter extends RecyclerView.Adapter<Tourname
     public void onBindViewHolder(TournamentViewHolder holder, int position) {
         TournamentSimpleDto dto = presenter.getItem(position);
         holder.bind(dto);
+        holder.setIsOwner(presenter.isTournamentOwner(position));
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

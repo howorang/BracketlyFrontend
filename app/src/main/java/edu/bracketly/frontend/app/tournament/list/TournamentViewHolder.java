@@ -36,6 +36,9 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tournament_status_icon)
     ImageView tournamentStatusIcon;
 
+    @BindView(R.id.tournament_owner_label)
+    TextView tournamentOwnerLabel;
+
     public TournamentViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -51,5 +54,9 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
         thisView.setOnClickListener(onClickListener);
+    }
+
+    public void setIsOwner(boolean tournamentOwner) {
+        tournamentOwnerLabel.setVisibility(tournamentOwner ? View.VISIBLE : View.GONE);
     }
 }

@@ -13,4 +13,5 @@ public class TournamentSimpleDto implements Serializable {
     private Date creationDate;
     private Date eventDate;
     private TOURNAMENT_STATUS tournamentStatus;
+    private Long organizerId;
 }
