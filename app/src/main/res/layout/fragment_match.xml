@@ -14,6 +14,14 @@
         android:text="@string/winner_button_text"
         android:visibility="gone" />
 
+
+    <ImageView
+        android:id="@+id/player_one_result_icon"
+        android:layout_width="@dimen/player_result_icon_size"
+        android:layout_height="@dimen/player_result_icon_size"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal" />
+
     <FrameLayout
         android:name="edu.bracketly.frontend.app.player.PlayerFragment"
         android:id="@+id/player_one_fragment_container"
@@ -42,5 +50,12 @@
         android:layout_height="wrap_content"
         android:text="@string/winner_button_text"
         android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/player_two_result_icon"
+        android:visibility="gone"
+        android:layout_width="@dimen/player_result_icon_size"
+        android:layout_height="@dimen/player_result_icon_size"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

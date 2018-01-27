@@ -2,11 +2,13 @@ package edu.bracketly.frontend.app.match.view;
 
 import javax.inject.Inject;
 
+import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.api.BracketApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import edu.bracketly.frontend.app.player.PlayerFragment;
 import edu.bracketly.frontend.consts.MATCH_STATUS;
 import edu.bracketly.frontend.dto.MatchDto;
+import edu.bracketly.frontend.dto.PlayerDto;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -106,5 +108,26 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
                     view.close();
                 }, this::handleError);
         disposable.add(subscribe);
+    }
+
+    public int getPlayerOneResultIconId() {
+        return getResultIconResId(matchDto, 1);
+    }
+
+    public int getPlayerTwoResultIconId() {
+        return getResultIconResId(matchDto, 2);
+    }
+
+    private int getResultIconResId(MatchDto matchDto, int playerNumber) {
+        if (matchDto.getWinner() == null) return 0;
+        if (matchDto.getSeats().get(playerNumber - 1).getPlayer() != null) {
+            PlayerDto player = matchDto.getSeats().get(playerNumber - 1).getPlayer();
+            if (player.equals(matchDto.getWinner())) {
+                return R.drawable.ic_won;
+            } else {
+                return R.drawable.ic_lost;
+            }
+        }
+        return 0;
     }
 }

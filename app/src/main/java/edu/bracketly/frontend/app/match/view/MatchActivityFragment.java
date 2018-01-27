@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -46,6 +47,12 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
 
     @BindView(R.id.player_two_win_button)
     Button playerTwoWinButton;
+
+    @BindView(R.id.player_one_result_icon)
+    ImageView playerOneResultIcon;
+
+    @BindView(R.id.player_two_result_icon)
+    ImageView playerTwoResultIcon;
 
     private Unbinder unbinder;
     private HostContract host;
@@ -113,6 +120,10 @@ public class MatchActivityFragment extends BaseFragment<MatchPresenter> {
         getFab().setVisibility(View.GONE);
         playerOneWinButton.setVisibility(View.GONE);
         playerTwoWinButton.setVisibility(View.GONE);
+        playerOneResultIcon.setVisibility(View.VISIBLE);
+        playerTwoResultIcon.setVisibility(View.VISIBLE);
+        playerOneResultIcon.setImageResource(presenter.getPlayerOneResultIconId());
+        playerTwoResultIcon.setImageResource(presenter.getPlayerTwoResultIconId());
     }
 
     public void markLive() {
