@@ -69,7 +69,7 @@ public class TournamentDetailsActivity extends BaseActivity implements Tournamen
                 NavUtils.navigateUpFromSameTask(this);
                 break;
         }
-        return true;
+        return false;
     }
 
     @Override

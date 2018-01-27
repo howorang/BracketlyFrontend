@@ -27,6 +27,7 @@ public class AddModifyTournamentActivity extends BaseActivity {
             if (getIntent().hasExtra(AddModifyTournamentFragment.TOURNAMENT_DTO)) {
                 arguments.putSerializable(AddModifyTournamentFragment.TOURNAMENT_DTO,
                         getIntent().getSerializableExtra(AddModifyTournamentFragment.TOURNAMENT_DTO));
+                setTitle("Edit Tournament");
             }
             AddModifyTournamentFragment fragment = new AddModifyTournamentFragment();
             fragment.setArguments(arguments);

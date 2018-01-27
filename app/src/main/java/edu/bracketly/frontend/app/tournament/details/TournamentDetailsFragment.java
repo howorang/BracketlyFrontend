@@ -116,7 +116,7 @@ public class TournamentDetailsFragment extends BaseFragment<TournamentDetailsPre
                 presenter.onStartButtonClick();
                 break;
         }
-        return true;
+        return false;
     }
 
     void invalidateActionBarMenu() {
