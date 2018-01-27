@@ -9,11 +9,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import edu.bracketly.frontend.R;
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.app.match.list.MatchListPresenter;
 import edu.bracketly.frontend.app.match.list.MyMatchRecyclerViewAdapter;
 import edu.bracketly.frontend.dto.ApiError;
 import edu.bracketly.frontend.dto.MatchDto;
+import edu.bracketly.frontend.dto.PlayerDto;
 import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -116,6 +118,27 @@ public class RoundPresenter implements MatchListPresenter {
         } else {
             return "Unknown";
         }
+    }
+
+    public int getPlayerOneResultIconId(int position) {
+        return getResultIconResId(matchDtos.get(position), 1);
+    }
+
+    public int getPlayerTwoResultIconId(int position) {
+        return getResultIconResId(matchDtos.get(position), 2);
+    }
+
+    private int getResultIconResId(MatchDto matchDto, int playerNumber) {
+        if (matchDto.getWinner() == null) return 0;
+        if (matchDto.getSeats().get(playerNumber - 1).getPlayer() != null) {
+            PlayerDto player = matchDto.getSeats().get(playerNumber - 1).getPlayer();
+            if (player.equals(matchDto.getWinner())) {
+                return R.drawable.ic_won;
+            } else {
+                return R.drawable.ic_lost;
+            }
+        }
+        return 0;
     }
 
     public void setView(RoundFragment view) {

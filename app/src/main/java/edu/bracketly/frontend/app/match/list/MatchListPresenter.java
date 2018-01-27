@@ -12,4 +12,9 @@ public interface MatchListPresenter extends Presenter {
     long getMatchId(int position);
     String getPlayerTwoLabel(int position);
     String getPlayerOneLabel(int position);
+
+    int getPlayerOneResultIconId(int position);
+
+    int getPlayerTwoResultIconId(int position);
+
 }

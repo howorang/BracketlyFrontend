@@ -27,6 +27,8 @@ public class MyMatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchViewHo
     public void onBindViewHolder(MatchViewHolder holder, int position) {
         holder.playerOneLabel.setText(presenter.getPlayerOneLabel(position));
         holder.playerTwpLabel.setText(presenter.getPlayerTwoLabel(position));
+        holder.playerOneResultIcon.setImageResource(presenter.getPlayerOneResultIconId(position));
+        holder.playerTwoResultIcon.setImageResource(presenter.getPlayerTwoResultIconId(position));
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,6 +2,7 @@ package edu.bracketly.frontend.app.match.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -19,6 +20,12 @@ public class MatchViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.player_two_label)
     TextView playerTwpLabel;
+
+    @BindView(R.id.player_one_result_icon)
+    ImageView playerOneResultIcon;
+
+    @BindView(R.id.player_two_result_icon)
+    ImageView playerTwoResultIcon;
 
     private View thisView;
 
