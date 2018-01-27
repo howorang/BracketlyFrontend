@@ -43,7 +43,7 @@ public class StartFragmentPresenter extends BasePresenter<StartFragment>
                     if (view == null) return;
                     matches = matchDtos.getLiveMatches();
                     view.notifyDataSetChanged();
-                });
+                }, this::handleError);
     }
 
     private void setUpAdapter() {

@@ -2,6 +2,9 @@ package edu.bracketly.frontend.app.tournament.round;
 
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,12 +12,14 @@ import javax.inject.Inject;
 import edu.bracketly.frontend.api.SingleEliminationBracketApi;
 import edu.bracketly.frontend.app.match.list.MatchListPresenter;
 import edu.bracketly.frontend.app.match.list.MyMatchRecyclerViewAdapter;
+import edu.bracketly.frontend.dto.ApiError;
 import edu.bracketly.frontend.dto.MatchDto;
 import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 /**
  * Created by howor on 27.12.2017.
@@ -28,14 +33,16 @@ public class RoundPresenter implements MatchListPresenter {
     int roundNumber;
     private RoundFragment view;
     private boolean canEditTournament;
+    private Gson gson;
 
     private final CompositeDisposable disposable;
 
     @Inject
-    public RoundPresenter(SingleEliminationBracketApi singleEliminationBracketApi, boolean canEditTournament) {
+    public RoundPresenter(SingleEliminationBracketApi singleEliminationBracketApi, boolean canEditTournament, Gson gson) {
         this.singleEliminationBracketApi = singleEliminationBracketApi;
         this.canEditTournament = canEditTournament;
         disposable = new CompositeDisposable();
+        this.gson = gson;
     }
 
     @Override
@@ -51,8 +58,34 @@ public class RoundPresenter implements MatchListPresenter {
                     } else {
                         view.list.getAdapter().notifyDataSetChanged();
                     }
-                });
+                }, this::handleError);
         disposable.add(subscribe);
+    }
+
+    protected void handleError(Throwable e) {
+        view.displayMessage(getErrorMessage(e));
+    }
+
+    protected String getErrorMessage(Throwable throwable) {
+        if (throwable instanceof HttpException) {
+            HttpException httpException = (HttpException) throwable;
+            switch (httpException.code()) {
+                case 401:
+                    return "Bad credentials";
+                case 500:
+                    String string = null;
+                    try {
+                        string = httpException.response().errorBody().string();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    ApiError apiError = gson.fromJson(string, ApiError.class);
+                    return apiError.getMessage();
+                default:
+                    return "HTTP: " + httpException.code();
+            }
+        }
+        return throwable.getMessage();
     }
 
     private void setupAdapter() {

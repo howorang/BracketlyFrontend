@@ -2,12 +2,10 @@ package edu.bracketly.frontend.app.login;
 
 import javax.inject.Inject;
 
-import edu.bracketly.frontend.api.BaseObserver;
 import edu.bracketly.frontend.api.BasicAuthInterceptor;
 import edu.bracketly.frontend.api.UserApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import edu.bracketly.frontend.app.UserContextHelper;
-import edu.bracketly.frontend.dto.UserDto;
 import edu.bracketly.frontend.navigation.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -44,25 +42,11 @@ public class LoginPresenter extends BasePresenter<LoginActivityFragment> {
         Disposable subscribe = userApi.aboutMe()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new BaseObserver<UserDto>() {
-                    @Override
-                    public void onNext(UserDto userDto) {
-                        userContextHelper.setCurrentUser(userDto);
-                        view.onLogin();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        handleError(e);
-                    }
-                });
+                .subscribe(userDto -> {
+                    userContextHelper.setCurrentUser(userDto);
+                    view.onLogin();
+                }, this::handleError);
         disposable.add(subscribe);
-    }
-
-    private void handleError(Throwable e) {
-        authInterceptor.clearCredentials();
-        String message = getErrorMessage(e);
-        view.displayMessage(message);
     }
 
     void onSignUpLinkClick() {

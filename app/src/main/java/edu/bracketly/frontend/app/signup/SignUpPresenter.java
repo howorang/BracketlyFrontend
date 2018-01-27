@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 
 import javax.inject.Inject;
 
-import edu.bracketly.frontend.api.BaseObserver;
 import edu.bracketly.frontend.api.UserApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -35,25 +34,11 @@ public class SignUpPresenter extends BasePresenter<SignUpActivity> {
             Disposable subscribe = userApi.createUser(view.getUsername(), view.getPassword())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(new BaseObserver<Void>() {
-                        @Override
-                        public void onNext(Void aVoid) {
-                            view.displaySignedUpMessage();
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            handleError(e);
-                        }
-                    });
+                    .subscribe(view::displaySignedUpMessage, this::handleError);
             disposable.add(subscribe);
         } else {
             view.displayValidationErrorMessage();
         }
-    }
-
-    private void handleError(Throwable throwable) {
-        view.displayMessage(getErrorMessage(throwable));
     }
 
     private boolean validateFields() {

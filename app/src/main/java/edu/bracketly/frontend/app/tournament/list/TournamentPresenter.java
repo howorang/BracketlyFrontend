@@ -91,7 +91,7 @@ public class TournamentPresenter extends BasePresenter<TournamentListFragment> {
                             isLoading = false;
                             view.setListEmpty(tournaments.isEmpty());
                             currentPageNumber++;
-                        });
+                        }, this::handleError);
         disposable.add(disposableCall);
     }
 

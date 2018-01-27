@@ -88,7 +88,7 @@ public class PlayerListFragmentLivePresenter extends BasePresenter<PlayerListFra
                     isLoading = false;
                     view.setListEmpty(players.isEmpty());
                     currentPageNumber++;
-                });
+                }, this::handleError);
         disposable.add(subscribe);
     }
 

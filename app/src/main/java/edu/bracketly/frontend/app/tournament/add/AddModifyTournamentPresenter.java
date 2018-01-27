@@ -104,7 +104,7 @@ public class AddModifyTournamentPresenter extends BasePresenter<AddModifyTournam
                 .subscribe(() -> {
                     Toast.makeText(view.getContext(), "Changes saved", Toast.LENGTH_SHORT).show();
                     view.close();
-                });
+                }, this::handleError);
         disposable.add(subscribe);
     }
 
@@ -116,7 +116,7 @@ public class AddModifyTournamentPresenter extends BasePresenter<AddModifyTournam
                 .subscribe(() -> {
                     Toast.makeText(view.getContext(), "Added", Toast.LENGTH_SHORT).show();
                     view.close();
-                });
+                }, this::handleError);
         disposable.add(subscribe);
     }
 

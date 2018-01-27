@@ -10,7 +10,8 @@ import dagger.android.support.DaggerFragment;
  * Created by howor on 23.12.2017.
  */
 
-public abstract class BaseFragment<P extends Presenter> extends DaggerFragment {
+public abstract class BaseFragment<P extends Presenter> extends DaggerFragment
+        implements BaseViewContract {
 
     @Inject
     protected P presenter;
@@ -28,6 +29,6 @@ public abstract class BaseFragment<P extends Presenter> extends DaggerFragment {
     }
 
     public void displayMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

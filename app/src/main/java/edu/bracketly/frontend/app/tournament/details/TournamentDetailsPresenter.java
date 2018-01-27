@@ -66,16 +66,17 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tournamentDto -> {
-                    tournament = tournamentDto;
-                    updateUi();
-                    if (tournament.getTournamentStatus() != TOURNAMENT_STATUS.PLANNING) {
-                        view.setPlanningMode(false);
-                        loadBracketDetails();
-                    } else {
-                        view.setPlanningMode(true);
-                        loadJoinedPlayers();
-                    }
-                });
+                            tournament = tournamentDto;
+                            updateUi();
+                            if (tournament.getTournamentStatus() != TOURNAMENT_STATUS.PLANNING) {
+                                view.setPlanningMode(false);
+                                loadBracketDetails();
+                            } else {
+                                view.setPlanningMode(true);
+                                loadJoinedPlayers();
+                            }
+                        },
+                        this::handleError);
         disposable.add(subscribe);
     }
 
@@ -93,12 +94,13 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(dto -> {
-                        bracketStateDto = (SingleBracketStateDto) dto;
-                        if (view.viewPager.getAdapter() == null) {
-                            view.viewPager.setAdapter(
-                                    new RoundPagerAdapter(view.getFragmentManager(), this));
-                        }
-                    });
+                                bracketStateDto = (SingleBracketStateDto) dto;
+                                if (view.viewPager.getAdapter() == null) {
+                                    view.viewPager.setAdapter(
+                                            new RoundPagerAdapter(view.getFragmentManager(), this));
+                                }
+                            },
+                            this::handleError);
             disposable.add(subscribe);
         }
     }
@@ -128,7 +130,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                 .subscribe((playerDtos) -> {
                     view.replaceFragment(R.id.fragment_container,
                             PlayerListFragment.newInstance(new ArrayList<>(playerDtos)));
-                });
+                }, this::handleError);
         disposable.add(subscribe);
     }
 
@@ -147,7 +149,7 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                 .subscribe(() -> {
                     view.displayTournamentJoinedMessage();
                     onResume();
-                });
+                }, this::handleError);
         disposable.add(subscribe);
     }
 
@@ -160,15 +162,16 @@ public class TournamentDetailsPresenter extends BasePresenter<TournamentDetailsF
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dto -> {
-                    if (view == null) return;
-                    view.displayTournamentStartedMessage();
-                    onResume();
-                });
+                            if (view == null) return;
+                            view.displayTournamentStartedMessage();
+                            onResume();
+                        }
+                        , this::handleError);
         disposable.add(subscribe);
     }
 
     public RoundPresenter getRoundPresenter() {
-        return new RoundPresenter(singleEliminationBracketApi, isTournamentOwner());
+        return new RoundPresenter(singleEliminationBracketApi, isTournamentOwner(), gson);
     }
 
     public boolean showJoinOption() {

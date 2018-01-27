@@ -91,7 +91,7 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
                 .subscribe(() -> {
                     view.displayMatchStartMessage();
                     updateGui(MATCH_STATUS.LIVE);
-                });
+                }, this::handleError);
         disposable.add(subscribe);
     }
 
@@ -104,7 +104,7 @@ public class MatchPresenter extends BasePresenter<MatchActivityFragment> {
                     view.displayPlayedMessage();
                     updateGui(MATCH_STATUS.PLAYED);
                     view.close();
-                });
+                }, this::handleError);
         disposable.add(subscribe);
     }
 }

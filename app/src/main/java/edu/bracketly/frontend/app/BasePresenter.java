@@ -14,7 +14,7 @@ import retrofit2.HttpException;
  * Created by howor on 23.12.2017.
  */
 
-public abstract class BasePresenter<T> implements Presenter {
+public abstract class BasePresenter<T extends BaseViewContract> implements Presenter {
 
     protected final T view;
 
@@ -29,6 +29,12 @@ public abstract class BasePresenter<T> implements Presenter {
 
     public void onDestroy() {
         disposable.clear();
+    }
+
+    protected void handleError(Throwable e) {
+        if (view != null) {
+            view.displayMessage(getErrorMessage(e));
+        } else e.printStackTrace();
     }
 
     protected String getErrorMessage(Throwable throwable) {

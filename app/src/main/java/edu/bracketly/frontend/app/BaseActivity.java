@@ -16,7 +16,8 @@ import dagger.android.support.DaggerAppCompatActivity;
  * Created by Piotr Borczyk on 20.12.2017.
  */
 
-public abstract class BaseActivity extends DaggerAppCompatActivity {
+public abstract class BaseActivity extends DaggerAppCompatActivity
+        implements BaseViewContract {
 
     @Inject
     protected FragmentManager fragmentManager;
@@ -39,6 +40,6 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
     }
 
     public void displayMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

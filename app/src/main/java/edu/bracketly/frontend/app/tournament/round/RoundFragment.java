@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import edu.bracketly.frontend.R;
+import edu.bracketly.frontend.app.BaseViewContract;
 
 
-public class RoundFragment extends Fragment {
+public class RoundFragment extends Fragment implements BaseViewContract {
 
     private RoundPresenter presenter;
 
@@ -70,5 +72,10 @@ public class RoundFragment extends Fragment {
         super.onDestroy();
         presenter.onDestroy();
         unbinder.unbind();
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
