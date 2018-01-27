@@ -75,6 +75,7 @@ public class PlayerListFragmentLivePresenter extends BasePresenter<PlayerListFra
     }
 
     private void loadNextPage() {
+        isLoading = true;
         Disposable subscribe = playerApi.getAllPlayers(currentPageNumber, "rank", 10, "DESC")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

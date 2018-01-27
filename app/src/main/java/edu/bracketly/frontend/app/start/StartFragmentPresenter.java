@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import edu.bracketly.frontend.api.BasicAuthInterceptor;
 import edu.bracketly.frontend.api.PlayerApi;
 import edu.bracketly.frontend.app.BasePresenter;
 import edu.bracketly.frontend.app.UserContextHelper;
@@ -21,16 +22,19 @@ public class StartFragmentPresenter extends BasePresenter<StartFragment>
         implements MatchListPresenter {
 
     private PlayerApi playerApi;
+    private BasicAuthInterceptor authInterceptor;
     private UserContextHelper contextHelper;
     private List<MatchDto> matches;
 
     @Inject
     protected StartFragmentPresenter(StartFragment view,
                                      PlayerApi playerApi,
-                                     UserContextHelper contextHelper) {
+                                     UserContextHelper contextHelper,
+                                     BasicAuthInterceptor authInterceptor) {
         super(view);
         this.playerApi = playerApi;
         this.contextHelper = contextHelper;
+        this.authInterceptor = authInterceptor;
     }
 
     @Override
@@ -47,8 +51,10 @@ public class StartFragmentPresenter extends BasePresenter<StartFragment>
     }
 
     private void setUpAdapter() {
-        MyMatchRecyclerViewAdapter adapter = new MyMatchRecyclerViewAdapter(this);
-        view.list.setAdapter(adapter);
+        if (view.list.getAdapter() == null) {
+            MyMatchRecyclerViewAdapter adapter = new MyMatchRecyclerViewAdapter(this);
+            view.list.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -80,5 +86,11 @@ public class StartFragmentPresenter extends BasePresenter<StartFragment>
         } else {
             return "Unknown";
         }
+    }
+
+    public void onLogOutButtonClick() {
+        authInterceptor.clearCredentials();
+        contextHelper.setCurrentUser(null);
+        view.logOut();
     }
 }

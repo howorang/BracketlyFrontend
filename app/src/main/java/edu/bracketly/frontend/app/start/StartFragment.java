@@ -1,9 +1,6 @@
 package edu.bracketly.frontend.app.start;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,8 +97,18 @@ public class StartFragment extends BaseFragment<StartFragmentPresenter> {
         unbinder.unbind();
     }
 
+    @OnClick(R.id.log_out_button)
+    void onLogOutClick() {
+        presenter.onLogOutButtonClick();
+    }
 
     public void notifyDataSetChanged() {
-        list.getAdapter().notifyDataSetChanged();
+        if (list.getAdapter() != null) {
+            list.getAdapter().notifyDataSetChanged();
+        }
+    }
+
+    public void logOut() {
+        getActivity().finish();
     }
 }
