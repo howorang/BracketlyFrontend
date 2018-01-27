@@ -19,7 +19,7 @@ import edu.bracketly.frontend.dto.TournamentSimpleDto;
 
 public class TournamentViewHolder extends RecyclerView.ViewHolder {
 
-    private static final SimpleDateFormat hourFormat = new SimpleDateFormat("HH::mm", Locale.getDefault());
+    private static final SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
     private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
     private View thisView;

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/view_time_holder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_centerVertical="true"
         android:gravity="center">
 
         <TextView
@@ -29,20 +30,26 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
+        android:layout_toEndOf="@id/view_time_holder"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_centerVertical="true"
         android:text="name" />
 
     <ImageView
         android:id="@+id/tournament_status_icon"
         android:layout_width="@dimen/player_result_icon_size"
-        android:layout_height="@dimen/player_result_icon_size" />
+        android:layout_height="@dimen/player_result_icon_size"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/tournament_owner_label"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:text="Owner" />
-</LinearLayout>
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:layout_toEndOf="@id/view_time_holder"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_centerVertical="true"
+        android:text="@string/owner" />
+</RelativeLayout>
