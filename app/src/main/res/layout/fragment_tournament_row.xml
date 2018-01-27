@@ -32,4 +32,9 @@
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
         android:text="name" />
+
+    <ImageView
+        android:id="@+id/tournament_status_icon"
+        android:layout_width="@dimen/player_result_icon_size"
+        android:layout_height="@dimen/player_result_icon_size" />
 </LinearLayout>

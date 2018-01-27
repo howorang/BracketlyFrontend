@@ -2,6 +2,7 @@ package edu.bracketly.frontend.app.tournament.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +33,9 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.event_day)
     TextView eventDay;
 
+    @BindView(R.id.tournament_status_icon)
+    ImageView tournamentStatusIcon;
+
     public TournamentViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -42,6 +46,7 @@ public class TournamentViewHolder extends RecyclerView.ViewHolder {
         name.setText(dto.getName());
         eventDay.setText(dayFormat.format(dto.getEventDate()));
         eventHour.setText(hourFormat.format(dto.getEventDate()));
+        tournamentStatusIcon.setImageResource(dto.getTournamentStatus().iconResId);
     }
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
